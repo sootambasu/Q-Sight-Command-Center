@@ -1,4 +1,4 @@
-﻿import { AuditLogEvent } from '@q-sight/shared';
+import { AuditLogEvent } from '@q-sight/shared';
 
 export async function exportHttps(event: AuditLogEvent): Promise<void> {
   const siemUrl = process.env.SIEM_WEBHOOK_URL;
@@ -10,12 +10,12 @@ export async function exportHttps(event: AuditLogEvent): Promise<void> {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': \Bearer \\
+      'Authorization': `Bearer ${process.env.SIEM_API_KEY || ''}`
     },
     body: JSON.stringify(event)
   });
 
   if (!response.ok) {
-    throw new Error(\SIEM export failed with status: \\);
+    throw new Error(`SIEM export failed with status: ${response.status}`);
   }
 }

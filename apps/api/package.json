@@ -18,8 +18,10 @@
     "pg": "^8.11.3"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^20.11.0",
     "@types/pg": "^8.11.0",
+    "jest": "^30.4.2",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3"
   }

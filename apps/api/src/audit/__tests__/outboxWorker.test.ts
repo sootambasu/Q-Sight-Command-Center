@@ -1,4 +1,4 @@
-﻿import { processOutboxBatch } from '../outboxWorker';
+import { processOutboxBatch } from '../outboxWorker';
 import { pool } from '../../db';
 import { exportHttps } from '../exporters/httpsExporter';
 import { config } from '../../config';
@@ -18,14 +18,14 @@ jest.mock('../../config', () => ({
 }));
 
 describe('Audit Outbox Worker', () => {
-  let clientMock;
+  let clientMock: any;
 
   beforeEach(() => {
     clientMock = {
       query: jest.fn(),
       release: jest.fn(),
     };
-    (pool.connect as jest.Mock).mockResolvedValue(clientMock);
+    (pool!.connect as jest.Mock).mockResolvedValue(clientMock);
     jest.clearAllMocks();
   });
 
@@ -35,13 +35,13 @@ describe('Audit Outbox Worker', () => {
         { id: '1', event_payload: { action: 'test' }, retry_count: 0 }
       ]
     });
-    (exportHttps as jest.Mock).mockResolvedValueOnce();
+    (exportHttps as jest.Mock).mockResolvedValueOnce(undefined);
 
     await processOutboxBatch();
 
     expect(exportHttps).toHaveBeenCalledWith({ action: 'test' });
     expect(clientMock.query).toHaveBeenCalledWith(
-      expect.stringContaining('UPDATE audit_outbox SET status = ''processed'''),
+      expect.stringContaining("UPDATE audit_outbox SET status = 'processed'"),
       ['1']
     );
   });
@@ -57,7 +57,7 @@ describe('Audit Outbox Worker', () => {
     await processOutboxBatch();
 
     expect(clientMock.query).toHaveBeenCalledWith(
-      expect.stringContaining('UPDATE audit_outbox SET status = , retry_count = , error_message = '),
+      expect.stringContaining('UPDATE audit_outbox SET status = $1, retry_count = $2, error_message = $3'),
       ['failed', 1, 'Network error', '2']
     );
   });
@@ -73,7 +73,7 @@ describe('Audit Outbox Worker', () => {
     await processOutboxBatch();
 
     expect(clientMock.query).toHaveBeenCalledWith(
-      expect.stringContaining('UPDATE audit_outbox SET status = , retry_count = , error_message = '),
+      expect.stringContaining('UPDATE audit_outbox SET status = $1, retry_count = $2, error_message = $3'),
       ['dead_letter', 3, 'Network error', '3']
     );
   });
