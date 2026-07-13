@@ -16,7 +16,12 @@ export const IndustrialAssetSchema = z.object({
   longitude: z.number().min(-180).max(180),
   boundary: PolygonGeometrySchema.nullable().optional(),
   created_at: z.union([z.string(), z.date()]).optional(),
-  updated_at: z.union([z.string(), z.date()]).optional()
+  updated_at: z.union([z.string(), z.date()]).optional(),
+  source: z.string().optional(),
+  freshness: z.number().optional(),
+  age: z.number().optional(),
+  quality: z.string().optional(),
+  staleness: z.boolean().optional()
 });
 
 // Aircraft Position Schema (matches OpenSky vector and DB)
@@ -30,7 +35,12 @@ export const AircraftPositionSchema = z.object({
   latitude: z.number().min(-90).max(90),
   longitude: z.number().min(-180).max(180),
   last_contact: z.union([z.string(), z.date(), z.number()]),
-  updated_at: z.union([z.string(), z.date()]).optional()
+  updated_at: z.union([z.string(), z.date()]).optional(),
+  source: z.string().optional(),
+  freshness: z.number().optional(),
+  age: z.number().optional(),
+  quality: z.string().optional(),
+  staleness: z.boolean().optional()
 });
 
 // Satellite Orbit Point Schema (represents satellite cache record)
@@ -52,7 +62,12 @@ export const SeismicEventSchema = z.object({
   event_time: z.union([z.string(), z.date(), z.number()]),
   latitude: z.number().min(-90).max(90),
   longitude: z.number().min(-180).max(180),
-  created_at: z.union([z.string(), z.date()]).optional()
+  created_at: z.union([z.string(), z.date()]).optional(),
+  source: z.string().optional(),
+  freshness: z.number().optional(),
+  age: z.number().optional(),
+  quality: z.string().optional(),
+  staleness: z.boolean().optional()
 });
 
 // =============================================================================

@@ -7,7 +7,10 @@ import {
   SeismicEvent,
   IngestionResult
 } from '@q-sight/shared';
-import { mockSeismicEvents } from './mock-data';
+let mockSeismicEvents : any[] = [];
+if (process.env.BUILD_PROFILE !== 'production') {
+  mockSeismicEvents = require('./mock-data').mockSeismicEvents;
+}
 
 // Load environment variables from possible parent directories
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
@@ -43,11 +46,17 @@ async function run() {
 
   if (isLive) {
     if (!sourceUrl) {
-      const errMsg = 'SEISMIC_SOURCE_URL is missing. Falling back to mock data.';
+      const errMsg = 'SEISMIC_SOURCE_URL is missing.';
       result.errors.push(errMsg);
-      console.warn(JSON.stringify({ event: 'ingestion_warning', type: 'seismic', message: errMsg, timestamp }));
-      result.records = mockSeismicEvents;
-      result.source = 'mock';
+      if (process.env.BUILD_PROFILE === 'production') {
+        console.warn(JSON.stringify({ event: 'ingestion_warning', type: 'seismic', message: errMsg + ' Mock fallback BLOCKED in production.', timestamp }));
+        result.records = [];
+        result.source = 'live';
+      } else {
+        console.warn(JSON.stringify({ event: 'ingestion_warning', type: 'seismic', message: errMsg + ' Falling back to mock data.', timestamp }));
+        result.records = mockSeismicEvents;
+        result.source = 'mock';
+      }
     } else {
       try {
         const dataStr = await fetchWithTimeout(sourceUrl, { headers: { 'Accept': 'application/json' } }, timeoutMs);
@@ -101,6 +110,11 @@ async function run() {
               event_time: eventTime,
               latitude,
               longitude,
+              source: result.source,
+              freshness: Date.now() - new Date(eventTime).getTime(),
+              age: Date.now() - new Date(eventTime).getTime(),
+              quality: result.source === 'live' ? 'high' : 'mock',
+              staleness: false
             };
 
             const validated = SeismicEventSchema.parse(event);
@@ -122,11 +136,17 @@ async function run() {
         }
 
       } catch (err: any) {
-        const errMsg = `Live ingestion failed: ${err.message || err}. Falling back to mock data.`;
+        const errMsg = `Live ingestion failed: ${err.message || err}.`;
         result.errors.push(errMsg);
-        console.error(JSON.stringify({ event: 'ingestion_run_failed', type: 'seismic', message: errMsg, timestamp }));
-        result.records = mockSeismicEvents;
-        result.source = 'mock';
+        if (process.env.BUILD_PROFILE === 'production') {
+          console.error(JSON.stringify({ event: 'ingestion_run_failed', type: 'seismic', message: errMsg + ' Mock fallback BLOCKED in production.', timestamp }));
+          result.records = [];
+          result.source = 'live';
+        } else {
+          console.error(JSON.stringify({ event: 'ingestion_run_failed', type: 'seismic', message: errMsg + ' Falling back to mock data.', timestamp }));
+          result.records = mockSeismicEvents;
+          result.source = 'mock';
+        }
       }
     }
   } else {
@@ -154,14 +174,19 @@ async function run() {
       await client.connect();
       for (const event of result.records) {
         const query = `
-          INSERT INTO seismic_events (usgs_id, place, magnitude, depth_km, event_time, location)
-          VALUES ($1, $2, $3, $4, $5, ST_SetSRID(ST_MakePoint($6, $7), 4326))
+          INSERT INTO seismic_events (usgs_id, place, magnitude, depth_km, event_time, location, source, freshness, age, quality, staleness)
+          VALUES ($1, $2, $3, $4, $5, ST_SetSRID(ST_MakePoint($6, $7), 4326), $8, $9, $10, $11, $12)
           ON CONFLICT (usgs_id) DO UPDATE SET
             place = EXCLUDED.place,
             magnitude = EXCLUDED.magnitude,
             depth_km = EXCLUDED.depth_km,
             event_time = EXCLUDED.event_time,
-            location = EXCLUDED.location;
+            location = EXCLUDED.location,
+            source = EXCLUDED.source,
+            freshness = EXCLUDED.freshness,
+            age = EXCLUDED.age,
+            quality = EXCLUDED.quality,
+            staleness = EXCLUDED.staleness;
         `;
 
         const values = [
@@ -172,7 +197,12 @@ async function run() {
           // Handle string vs number vs date for time in SQL
           typeof event.event_time === 'number' ? new Date(event.event_time) : new Date(event.event_time),
           event.longitude, // X coordinate
-          event.latitude   // Y coordinate
+          event.latitude,  // Y coordinate
+          event.source || 'live',
+          event.freshness || 0,
+          event.age || 0,
+          event.quality || 'unknown',
+          event.staleness || false
         ];
 
         await client.query(query, values);
@@ -200,3 +230,4 @@ run().catch((err) => {
   console.error(JSON.stringify({ event: 'ingestion_fatal_failure', type: 'seismic', message: err.message || err, timestamp: new Date().toISOString() }));
   process.exit(1);
 });
+
