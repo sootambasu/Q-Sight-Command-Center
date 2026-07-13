@@ -89,7 +89,7 @@ function driftSatellite(sat: SatelliteOrbitPoint): SatelliteOrbitPoint {
   const lonDelta = (Math.random() - 0.5) * 2.0;
   const latDelta = (Math.random() - 0.5) * 0.5;
 
-  const shifted = sat.footprint.coordinates[0].map(([lon, lat]) => [
+  const shifted = sat.footprint.coordinates[0].map(([lon, lat]: any) => [
     Math.max(-179.9, Math.min(179.9, lon + lonDelta)),
     Math.max(-89.9, Math.min(89.9, lat + latDelta)),
   ]);
