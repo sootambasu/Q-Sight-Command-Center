@@ -8,6 +8,8 @@ export type Permission =
   | 'cameras:metadata:read'
   | 'audit:read'
   | 'audit:summary:read'
+  | 'alerts:read'
+  | 'alerts:write'
   | 'admin:all';
 
 // Define roles and their corresponding permissions
@@ -16,6 +18,8 @@ export const ROLE_PERMISSIONS: Record<UserRole, Permission[]> = {
     'telemetry:read',
     'assets:read',
     'cameras:summary:read',
+    'alerts:read',
+    'alerts:write',
   ],
   supervisor: [
     'telemetry:read',
@@ -23,6 +27,8 @@ export const ROLE_PERMISSIONS: Record<UserRole, Permission[]> = {
     'assets:sensitive:read',
     'cameras:summary:read',
     'cameras:metadata:read',
+    'alerts:read',
+    'alerts:write',
   ],
   auditor: [
     'audit:read',
@@ -36,6 +42,8 @@ export const ROLE_PERMISSIONS: Record<UserRole, Permission[]> = {
     'cameras:metadata:read',
     'audit:read',
     'audit:summary:read',
+    'alerts:read',
+    'alerts:write',
     'admin:all',
   ],
 };

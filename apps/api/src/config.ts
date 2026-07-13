@@ -6,20 +6,28 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
+export type BuildProfile = 'demo' | 'production';
+
 export interface AppConfig {
   port: number;
   nodeEnv: string;
+  buildProfile: BuildProfile;
   databaseUrl?: string;
   auditLoggingEnabled: boolean;
   liveIngestionEnabled: boolean;
   aircraftLiveEnabled: boolean;
   satelliteLiveEnabled: boolean;
   seismicLiveEnabled: boolean;
+  jwtSecret?: string;
+  oidcIssuerUrl?: string;
+  oidcAudience?: string;
+  oidcJwksUrl?: string;
 }
 
 export const config: AppConfig = {
   port: parseInt(process.env.API_PORT || '4000', 10),
   nodeEnv: process.env.NODE_ENV || 'development',
+  buildProfile: (process.env.BUILD_PROFILE === 'production' || process.env.NODE_ENV === 'production') ? 'production' : 'demo',
   databaseUrl: process.env.DATABASE_URL,
   auditLoggingEnabled: process.env.AUDIT_LOGGING_ENABLED !== 'false',
   liveIngestionEnabled: process.env.LIVE_INGESTION_ENABLED === 'true',

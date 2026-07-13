@@ -1,3 +1,4 @@
+import { validateWsTicket } from '../auth/wsTicket';
 /**
  * apps/api/src/routes/realtime.ts
  * V0.6 — Real-time WebSocket Telemetry & Safe Geofence Alerts
@@ -16,7 +17,7 @@ import { logAuditEvent } from '../audit/auditLogger';
 import { mockAircrafts, mockSatellites, mockSeismicEvents, mockAssets } from '../mock-data';
 import { AircraftPosition, SatelliteOrbitPoint, SeismicEvent } from '@q-sight/shared';
 import { pool } from '../db';
-
+import { config } from '../config';
 
 // =============================================================================
 // Configuration
@@ -89,7 +90,7 @@ function driftSatellite(sat: SatelliteOrbitPoint): SatelliteOrbitPoint {
   const lonDelta = (Math.random() - 0.5) * 2.0;
   const latDelta = (Math.random() - 0.5) * 0.5;
 
-  const shifted = sat.footprint.coordinates[0].map(([lon, lat]: any) => [
+  const shifted = sat.footprint.coordinates[0].map((pt: number[]) => [pt[0], pt[1]] as [number, number]).map(([lon, lat]: [number, number]) => [
     Math.max(-179.9, Math.min(179.9, lon + lonDelta)),
     Math.max(-89.9, Math.min(89.9, lat + latDelta)),
   ]);
@@ -169,20 +170,26 @@ export async function realtimeRoutes(fastify: FastifyInstance) {
   fastify.get('/ws/realtime', { websocket: true }, async (connection: SocketStream, request) => {
     const socket = connection.socket; // ws WebSocket instance
     const query = request.query as Record<string, string>;
-
-    // --- Dev-only role resolution from query params ---
-    // IMPORTANT: This is DEVELOPMENT-ONLY. Query-param roles are NOT secure.
-    // Production must validate via JWT/session cookies, never query params.
-    const roleParam = (query.role || 'operator').toLowerCase();
-    const userIdParam = query.user_id || `dev_${roleParam}`;
+    const ticketStr = query.ticket;
+    
+    if (!ticketStr) {
+       socket.close(1008, 'Missing ticket');
+       return;
+    }
+    
+    let ticketData;
+    try {
+      ticketData = await validateWsTicket(ticketStr);
+    } catch (err: any) {
+      fastify.log.warn(`[WS] Ticket validation failed: ${err.message}`);
+      socket.close(1008, 'Invalid ticket');
+      return;
+    }
+    
+    const role: UserRole = ticketData.role;
+    const userIdParam = ticketData.userId;
+    const permissions = ticketData.permissions;
     const requestId = `ws_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-
-    const validRoles: UserRole[] = ['operator', 'supervisor', 'auditor', 'admin'];
-    const role: UserRole = validRoles.includes(roleParam as UserRole)
-      ? roleParam as UserRole
-      : 'operator';
-
-    const permissions = ROLE_PERMISSIONS[role] || [];
 
     fastify.log.info(
       `[WS] Connection opened — user: ${userIdParam}, role: ${role}, ip: ${request.ip}`
@@ -280,6 +287,10 @@ export async function realtimeRoutes(fastify: FastifyInstance) {
       }
 
       if (planesToStream.length === 0) {
+        if (config.buildProfile === 'production') {
+          socket.send(buildMessage('telemetry.aircraft.status', { quality_state: 'no_trusted_data', data_origin: 'live' }, 'database'));
+          return;
+        }
         // Fallback to mock drift simulation
         liveAircrafts = liveAircrafts.map(driftAircraft);
         planesToStream = liveAircrafts;
@@ -384,6 +395,10 @@ export async function realtimeRoutes(fastify: FastifyInstance) {
       }
 
       if (satsToStream.length === 0) {
+        if (config.buildProfile === 'production') {
+          socket.send(buildMessage('telemetry.satellite.status', { quality_state: 'no_trusted_data', data_origin: 'live' }, 'database'));
+          return;
+        }
         liveSatellites = liveSatellites.map(driftSatellite);
         satsToStream = liveSatellites;
         source = 'mock';
@@ -461,6 +476,11 @@ export async function realtimeRoutes(fastify: FastifyInstance) {
       }
 
       if (events.length === 0) {
+        if (config.buildProfile === 'production') {
+          socket.send(buildMessage('telemetry.seismic.status', { quality_state: 'no_trusted_data', data_origin: 'live' }, 'database'));
+          return;
+        }
+        // Dev/demo mode fallback to mock
         events = liveSeismic;
         source = 'mock';
       }
