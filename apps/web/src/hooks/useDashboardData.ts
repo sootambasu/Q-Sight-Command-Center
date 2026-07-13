@@ -6,11 +6,10 @@ import {
   fetchAircrafts,
   fetchSatellites,
   fetchSeismicEvents,
-  fetchCameras,
+  fetchSensors,
   fetchAuditLogs,
   fetchAuditSummary,
   ApiResponse,
-  AuthorizedCameraMetadata,
   AuditSummaryItem
 } from '../api';
 import {
@@ -18,7 +17,8 @@ import {
   AircraftPosition,
   SatelliteOrbitPoint,
   SeismicEvent,
-  AuditLogEvent
+  AuditLogEvent,
+  SensorRegistryEntry
 } from '@q-sight/shared';
 
 export interface TimelineItem {
@@ -56,7 +56,7 @@ export function useDashboardData() {
   const [aircrafts, setAircrafts] = useState<AircraftPosition[]>([]);
   const [satellites, setSatellites] = useState<SatelliteOrbitPoint[]>([]);
   const [seismicEvents, setSeismicEvents] = useState<SeismicEvent[]>([]);
-  const [cameras, setCameras] = useState<AuthorizedCameraMetadata[]>([]);
+  const [cameras, setCameras] = useState<SensorRegistryEntry[]>([]);
 
   // Compliance Audit states
   const [auditLogs, setAuditLogs] = useState<AuditLogEvent[]>([]);
@@ -232,7 +232,7 @@ export function useDashboardData() {
         fetchResource(fetchAircrafts, setAircrafts, 'aircraft'),
         fetchResource(fetchSatellites, setSatellites, 'satellites'),
         fetchResource(fetchSeismicEvents, setSeismicEvents, 'seismic'),
-        fetchResource(fetchCameras, setCameras, 'cameras')
+        fetchResource(fetchSensors, setCameras, 'cameras')
       ]);
     }
 

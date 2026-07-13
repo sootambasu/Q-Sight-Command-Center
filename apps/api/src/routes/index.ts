@@ -4,6 +4,7 @@ import { healthRoutes } from './health';
 import { assetsRoutes } from './assets';
 import { telemetryRoutes } from './telemetry';
 import { camerasRoutes } from './cameras';
+import { sensorRegistryRoutes } from './sensorRegistry';
 import { auditRoutes } from './audit';
 import { realtimeRoutes } from './realtime';
 import { parseUserContext } from '../auth/context';
@@ -50,6 +51,7 @@ export async function registerRoutes(fastify: FastifyInstance) {
   await fastify.register(assetsRoutes);
   await fastify.register(telemetryRoutes);
   await fastify.register(camerasRoutes);
+  await fastify.register(sensorRegistryRoutes);
   await fastify.register(auditRoutes);
   // V0.6: Real-time WebSocket telemetry (non-camera only)
   await 

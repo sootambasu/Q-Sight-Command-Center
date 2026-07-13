@@ -3,7 +3,7 @@ import {
   AircraftPosition,
   SatelliteOrbitPoint,
   SeismicEvent,
-  AuthorizedCameraRegistryEntry
+  SensorRegistryEntry
 } from '@q-sight/shared';
 
 export const mockAssets: IndustrialAsset[] = [
@@ -221,16 +221,24 @@ export const mockSeismicEvents: SeismicEvent[] = [
   }
 ];
 
-export const mockCameras: any[] = [
+// =============================================================================
+// mockSensors — Sensor Registry mock data
+// Migrated from mockCameras (2026-07-13, migration 005).
+// PROHIBITED FIELDS REMOVED: stream_url, verification_hash
+// These fields are permanently removed per Q-Sight P0 scope policy.
+// =============================================================================
+export const mockSensors: SensorRegistryEntry[] = [
   {
     id: "1c2d3e4f-5678-490a-bcde-f12345678901",
     asset_id: "3e5a525f-22f3-42e1-85b4-f3c5f55de068",
     name: "Refinery Perimeter North",
-    sensor_category: 'camera', registration_status: 'active', status: "online",
+    sensor_category: "camera",
+    status: "online",
     latitude: 37.937,
     longitude: -122.348,
     owner_id: "Chevron",
     authorization_status: "verified",
+    registration_status: "registered",
     authorized_at: new Date().toISOString(),
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
@@ -239,11 +247,13 @@ export const mockCameras: any[] = [
     id: "1c2d3e4f-5678-490a-bcde-f12345678902",
     asset_id: "3e5a525f-22f3-42e1-85b4-f3c5f55de068",
     name: "Refinery Tank Farm East",
-    sensor_category: 'camera', registration_status: 'active', status: "online",
+    sensor_category: "camera",
+    status: "online",
     latitude: 37.934,
     longitude: -122.343,
     owner_id: "Chevron",
     authorization_status: "verified",
+    registration_status: "registered",
     authorized_at: new Date().toISOString(),
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
@@ -252,11 +262,13 @@ export const mockCameras: any[] = [
     id: "2c2d3e4f-5678-490a-bcde-f12345678903",
     asset_id: "7b4c6e94-3995-4da2-8b43-264d8a1f6a1e",
     name: "Power Station Main Gate",
-    sensor_category: 'camera', registration_status: 'active', status: "online",
+    sensor_category: "camera",
+    status: "online",
     latitude: 36.809,
     longitude: -121.787,
     owner_id: "PG&E",
     authorization_status: "verified",
+    registration_status: "registered",
     authorized_at: new Date().toISOString(),
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
@@ -265,13 +277,21 @@ export const mockCameras: any[] = [
     id: "3c2d3e4f-5678-490a-bcde-f12345678904",
     asset_id: "2c1d3e4f-5678-490a-bcde-f1234567890a",
     name: "Pipeline Valve 12 Intake",
-    sensor_category: 'camera', registration_status: 'active', status: "offline",
+    sensor_category: "camera",
+    status: "offline",
     latitude: 33.742,
     longitude: -118.262,
     owner_id: "PacificGas",
     authorization_status: "pending",
+    registration_status: "registered",
     authorized_at: null,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
   }
 ];
+
+/**
+ * @deprecated Use mockSensors instead.
+ * Retained as a backward-compatible alias during the migration window.
+ */
+export const mockCameras = mockSensors;

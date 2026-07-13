@@ -3,25 +3,12 @@ import {
   AircraftPosition,
   SatelliteOrbitPoint,
   SeismicEvent,
-  AuthorizedCameraRegistryEntry,
+  SensorRegistryEntry,
   AuditLogEvent
 } from '@q-sight/shared';
 
-export interface AuthorizedCameraMetadata {
-  id?: string;
-  asset_id?: string | null;
-  name: string;
-  status: 'online' | 'offline' | 'disabled';
-  authorization_status: 'pending' | 'verified' | 'revoked';
-  authorized_at?: string | null;
-  created_at?: string | null;
-  updated_at?: string | null;
-  latitude?: number;
-  longitude?: number;
-  owner_id?: string;
-  protected?: boolean;
-  message?: string;
-}
+
+
 
 
 export interface ApiResponse<T> {
@@ -134,9 +121,23 @@ export async function fetchSeismicEvents(): Promise<ApiResponse<SeismicEvent>> {
   return res.json();
 }
 
-export async function fetchCameras(): Promise<ApiResponse<AuthorizedCameraMetadata>> {
-  const res = await fetchWithTimeout(`${BASE_URL}/api/cameras/authorized`);
-  if (!res.ok) throw new Error('Failed to fetch authorized cameras');
+export async function fetchSensors(): Promise<ApiResponse<SensorRegistryEntry>> {
+  const res = await fetchWithTimeout(`${BASE_URL}/api/sensors/registry`);
+  if (!res.ok) throw new Error('Failed to fetch sensor registry');
+  return res.json();
+}
+
+export async function fetchAlerts(): Promise<ApiResponse<Alert>> {
+  const res = await fetchWithTimeout(`${BASE_URL}/api/alerts`);
+  if (!res.ok) throw new Error('Failed to fetch alerts');
+  return res.json();
+}
+
+export async function acknowledgeAlert(alertId: string): Promise<Alert> {
+  const res = await fetchWithTimeout(`${BASE_URL}/api/alerts/${alertId}/acknowledge`, {
+    method: 'POST'
+  });
+  if (!res.ok) throw new Error('Failed to acknowledge alert');
   return res.json();
 }
 
