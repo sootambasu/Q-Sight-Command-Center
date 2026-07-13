@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . .
 
 # Install dependencies
-RUN npm install
+RUN npm ci
 
 # Build shared packages and the Web app
 RUN npm run build:shared

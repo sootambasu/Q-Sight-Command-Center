@@ -14,7 +14,7 @@ jest.mock('../exporters/httpsExporter', () => ({
 }));
 
 jest.mock('../../config', () => ({
-  config: { environment: 'production' },
+  config: { buildProfile: 'production' },
 }));
 
 describe('Audit Outbox Worker', () => {

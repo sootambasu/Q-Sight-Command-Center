@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . .
 
 # Install dependencies
-RUN npm install
+RUN npm ci
 
 # Build shared packages, workers, and the API
 # npm run build in root runs build:shared, build:api, and build:workers

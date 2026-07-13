@@ -4,7 +4,8 @@ import {
   SatelliteOrbitPoint,
   SeismicEvent,
   SensorRegistryEntry,
-  AuditLogEvent
+  AuditLogEvent,
+  Alert
 } from '@q-sight/shared';
 
 

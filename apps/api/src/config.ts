@@ -34,5 +34,9 @@ export const config: AppConfig = {
   aircraftLiveEnabled: process.env.AIRCRAFT_LIVE_ENABLED === 'true',
   satelliteLiveEnabled: process.env.SATELLITE_LIVE_ENABLED === 'true',
   seismicLiveEnabled: process.env.SEISMIC_LIVE_ENABLED === 'true',
+  jwtSecret: process.env.JWT_SECRET,
+  oidcIssuerUrl: process.env.OIDC_ISSUER_URL,
+  oidcAudience: process.env.OIDC_AUDIENCE,
+  oidcJwksUrl: process.env.OIDC_JWKS_URL,
 };
 

@@ -11,7 +11,7 @@ import { validateWsTicket } from '../auth/wsTicket';
  */
 
 import { FastifyInstance } from 'fastify';
-import type { SocketStream } from '@fastify/websocket';
+import type { WebSocket } from 'ws';
 import { UserRole, ROLE_PERMISSIONS, Permission } from '../auth/roles';
 import { logAuditEvent } from '../audit/auditLogger';
 import { mockAircrafts, mockSatellites, mockSeismicEvents, mockAssets } from '../mock-data';
@@ -167,25 +167,24 @@ export async function realtimeRoutes(fastify: FastifyInstance) {
    * Dev-only: role resolved from query params ?role=...&user_id=...
    * Production: replace with JWT/session validation.
    */
-  fastify.get('/ws/realtime', { websocket: true }, async (connection: SocketStream, request) => {
-    const socket = connection.socket; // ws WebSocket instance
-    const query = request.query as Record<string, string>;
-    const ticketStr = query.ticket;
-    
-    if (!ticketStr) {
-       socket.close(1008, 'Missing ticket');
-       return;
+  fastify.get('/ws/realtime', {
+    websocket: true,
+    preValidation: async (request, reply) => {
+      const query = request.query as Record<string, string>;
+      const ticketStr = query.ticket;
+      if (!ticketStr) {
+        return reply.status(401).send({ error: 'Missing ticket' });
+      }
+      try {
+        const ticketData = await validateWsTicket(ticketStr);
+        (request as any).ticketData = ticketData;
+      } catch (err: any) {
+        fastify.log.warn(`[WS] Ticket validation failed: ${err.message}`);
+        return reply.status(401).send({ error: 'Invalid or expired ticket' });
+      }
     }
-    
-    let ticketData;
-    try {
-      ticketData = await validateWsTicket(ticketStr);
-    } catch (err: any) {
-      fastify.log.warn(`[WS] Ticket validation failed: ${err.message}`);
-      socket.close(1008, 'Invalid ticket');
-      return;
-    }
-    
+  }, async (socket: WebSocket, request) => {
+    const ticketData = (request as any).ticketData;
     const role: UserRole = ticketData.role;
     const userIdParam = ticketData.userId;
     const permissions = ticketData.permissions;

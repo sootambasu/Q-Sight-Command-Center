@@ -189,3 +189,25 @@ export const WsGeofenceAlertSchema = z.object({
   message: z.string(),
   timestamp: z.string(),
 });
+
+export const AlertSchema = z.object({
+  alert_id: z.string(),
+  alert_type: z.string(),
+  asset_id: z.string().uuid(),
+  asset_name: z.string().nullable().optional(),
+  source_type: z.string(),
+  source_id: z.string(),
+  severity: z.enum(['info', 'watch', 'warning']),
+  message: z.string(),
+  timestamp: z.union([z.string(), z.date()]).optional(),
+  status: z.enum(['new', 'acknowledged', 'assigned', 'investigating', 'resolved']).default('new'),
+  assignee_id: z.string().nullable().optional(),
+  acknowledged_at: z.union([z.string(), z.date()]).nullable().optional(),
+  acknowledged_by: z.string().nullable().optional(),
+  investigating_at: z.union([z.string(), z.date()]).nullable().optional(),
+  investigating_by: z.string().nullable().optional(),
+  resolved_at: z.union([z.string(), z.date()]).nullable().optional(),
+  resolved_by: z.string().nullable().optional(),
+  resolution_notes: z.string().nullable().optional(),
+});
+

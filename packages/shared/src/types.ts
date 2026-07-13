@@ -13,6 +13,7 @@ import {
   WsGeofenceAlertSchema,
   WsChannelSchema,
   WsMessageTypeSchema,
+  AlertSchema,
 } from './schemas';
 
 export type PolygonGeometry = z.infer<typeof PolygonGeometrySchema>;
@@ -42,3 +43,6 @@ export type WsSubscribeMessage = z.infer<typeof WsSubscribeMessageSchema>;
 export type WsGeofenceAlert = z.infer<typeof WsGeofenceAlertSchema>;
 export type WsChannel = z.infer<typeof WsChannelSchema>;
 export type WsMessageType = z.infer<typeof WsMessageTypeSchema>;
+
+export type Alert = z.infer<typeof AlertSchema>;
+

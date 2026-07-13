@@ -42,7 +42,8 @@
     "verify:full": "npm run db:up && npm run build && npm run typecheck && cross-env MOCK_INGESTOR_WRITE_TO_DB=true npm run worker:opensky:mock && cross-env MOCK_INGESTOR_WRITE_TO_DB=true npm run worker:satellite:mock && cross-env MOCK_INGESTOR_WRITE_TO_DB=true npm run worker:earthquake:mock && npm run verify:web",
     "verify:ci": "powershell -ExecutionPolicy Bypass -File scripts/ci_verify.ps1",
     "verify:ci:docker": "powershell -ExecutionPolicy Bypass -File scripts/ci_verify.ps1 -IncludeDocker",
-    "verify": "npm run verify:static"
+    "verify": "npm run verify:static",
+    "test": "npm run build && npm run test -w apps/api"
   },
   "overrides": {
     "esbuild": "^0.25.0",
