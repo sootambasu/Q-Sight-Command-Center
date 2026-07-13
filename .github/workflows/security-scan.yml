@@ -1,0 +1,38 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    - cron: '0 2 * * 1'
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  dependency-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - run: npm ci
+      - name: Full dependency audit
+        run: npm audit --json > audit-report.json || true
+      - name: Check security exceptions
+        run: |
+          if [ -f security-exceptions.yaml ]; then
+            echo "Security exception register found"
+            # TODO: validate exceptions schema and expiry
+          fi
+      - name: Secret scan (basic)
+        run: |
+          # Check for common secret patterns in committed files
+          if git grep -rE "(password|secret|private_key|api_key)\s*=\s*['\"][^'\"]{8,}" -- '*.ts' '*.js' '*.json' '*.yaml' '*.yml' '*.env.example'; then
+            echo "WARNING: Potential secret patterns found. Review output above."
+          fi

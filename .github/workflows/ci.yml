@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build shared package
+        run: npm run build:shared
+
+      - name: Build API
+        run: npm run build:api
+
+      - name: Build workers
+        run: npm run build:workers
+
+      - name: Build web
+        run: npm run build:web
+
+      - name: TypeCheck all
+        run: npm run typecheck && npm run typecheck:web
+
+      - name: Safety guardrails scan
+        run: node scripts/verify_safety_guardrails.js
+
+      - name: Dependency audit (production)
+        run: npm audit --omit=dev --audit-level=high
+        continue-on-error: false

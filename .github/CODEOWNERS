@@ -1,0 +1,20 @@
+# Default owner for all files
+*                                    @sootambasu
+
+# API
+apps/api/                            @sootambasu
+# Web frontend
+apps/web/                            @sootambasu
+# Workers
+workers/                             @sootambasu
+# Shared packages
+packages/                            @sootambasu
+# Database migrations — require explicit review
+infra/postgres/init/                 @sootambasu
+# Security configurations
+docs/security-guardrails.md          @sootambasu
+security-exceptions.yaml             @sootambasu
+# GitHub workflows — require explicit review
+.github/workflows/                   @sootambasu
+# Release scripts
+scripts/                             @sootambasu
