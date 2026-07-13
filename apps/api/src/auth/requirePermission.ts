@@ -37,7 +37,7 @@ export function requirePermission(permission: Permission) {
           role: context.role,
           action: 'access_denied',
           target_type: 'endpoint',
-          target_id: request.routerPath || request.url,
+          target_id: request.routeOptions?.url || request.url,
           request_id: context.request_id,
           route: request.url,
           metadata: {

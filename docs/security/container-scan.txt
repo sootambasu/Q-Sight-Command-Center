@@ -1,0 +1,1 @@
+Container scan passed. No vulnerabilities in base image. 

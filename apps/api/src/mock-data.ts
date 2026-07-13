@@ -226,13 +226,11 @@ export const mockCameras: any[] = [
     id: "1c2d3e4f-5678-490a-bcde-f12345678901",
     asset_id: "3e5a525f-22f3-42e1-85b4-f3c5f55de068",
     name: "Refinery Perimeter North",
-
-    status: "online",
-
+    sensor_category: 'camera', registration_status: 'active', status: "online",
     latitude: 37.937,
     longitude: -122.348,
     owner_id: "Chevron",
-    authorization_status: "verified",
+    authorization_sensor_category: 'camera', registration_status: 'active', status: "verified",
     authorized_at: new Date().toISOString(),
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
@@ -241,13 +239,11 @@ export const mockCameras: any[] = [
     id: "1c2d3e4f-5678-490a-bcde-f12345678902",
     asset_id: "3e5a525f-22f3-42e1-85b4-f3c5f55de068",
     name: "Refinery Tank Farm East",
-
-    status: "online",
-
+    sensor_category: 'camera', registration_status: 'active', status: "online",
     latitude: 37.934,
     longitude: -122.343,
     owner_id: "Chevron",
-    authorization_status: "verified",
+    authorization_sensor_category: 'camera', registration_status: 'active', status: "verified",
     authorized_at: new Date().toISOString(),
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
@@ -256,13 +252,11 @@ export const mockCameras: any[] = [
     id: "2c2d3e4f-5678-490a-bcde-f12345678903",
     asset_id: "7b4c6e94-3995-4da2-8b43-264d8a1f6a1e",
     name: "Power Station Main Gate",
-
-    status: "online",
-
+    sensor_category: 'camera', registration_status: 'active', status: "online",
     latitude: 36.809,
     longitude: -121.787,
     owner_id: "PG&E",
-    authorization_status: "verified",
+    authorization_sensor_category: 'camera', registration_status: 'active', status: "verified",
     authorized_at: new Date().toISOString(),
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
@@ -271,13 +265,11 @@ export const mockCameras: any[] = [
     id: "3c2d3e4f-5678-490a-bcde-f12345678904",
     asset_id: "2c1d3e4f-5678-490a-bcde-f1234567890a",
     name: "Pipeline Valve 12 Intake",
-
-    status: "offline",
-
+    sensor_category: 'camera', registration_status: 'active', status: "offline",
     latitude: 33.742,
     longitude: -118.262,
     owner_id: "PacificGas",
-    authorization_status: "pending",
+    authorization_sensor_category: 'camera', registration_status: 'active', status: "pending",
     authorized_at: null,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()

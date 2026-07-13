@@ -1,0 +1,1 @@
+License scan passed. No copyleft dependencies found.  

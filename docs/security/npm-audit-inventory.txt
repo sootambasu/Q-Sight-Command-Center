@@ -1,0 +1,41 @@
+# npm audit report
+
+fast-uri  <=3.1.1
+Severity: high
+fast-uri vulnerable to path traversal via percent-encoded dot segments - https://github.com/advisories/GHSA-q3j6-qgpj-74h6
+fast-uri vulnerable to host confusion via percent-encoded authority delimiters - https://github.com/advisories/GHSA-v39h-62p7-jpjc
+fix available via `npm audit fix --force`
+Will install fastify@5.10.0, which is a breaking change
+node_modules/fast-uri
+  @fastify/ajv-compiler  3.1.0 - 3.6.0
+  Depends on vulnerable versions of fast-uri
+  node_modules/@fastify/ajv-compiler
+    fastify  <=5.8.2
+    Depends on vulnerable versions of @fastify/ajv-compiler
+    Depends on vulnerable versions of @fastify/fast-json-stringify-compiler
+    Depends on vulnerable versions of fast-json-stringify
+    node_modules/fastify
+  fast-json-stringify  3.1.0 - 6.0.0
+  Depends on vulnerable versions of fast-uri
+  node_modules/fast-json-stringify
+    @fastify/fast-json-stringify-compiler  3.0.0 - 5.0.0-pre.fv5.1
+    Depends on vulnerable versions of fast-json-stringify
+    node_modules/@fastify/fast-json-stringify-compiler
+
+
+vite  <=6.4.2
+Severity: high
+Vite Vulnerable to Path Traversal in Optimized Deps `.map` Handling - https://github.com/advisories/GHSA-4w7w-66w2-5vf9
+launch-editor: NTLMv2 hash disclosure via UNC path handling on Windows - https://github.com/advisories/GHSA-v6wh-96g9-6wx3
+vite: `server.fs.deny` bypass on Windows alternate paths - https://github.com/advisories/GHSA-fx2h-pf6j-xcff
+fix available via `npm audit fix --force`
+Will install vite@8.1.4, which is a breaking change
+node_modules/vite
+
+6 high severity vulnerabilities
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
