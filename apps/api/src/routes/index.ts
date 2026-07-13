@@ -1,3 +1,4 @@
+import { generateWsTicket } from '../auth/wsTicket';
 import { FastifyInstance } from 'fastify';
 import { healthRoutes } from './health';
 import { assetsRoutes } from './assets';
@@ -51,6 +52,15 @@ export async function registerRoutes(fastify: FastifyInstance) {
   await fastify.register(camerasRoutes);
   await fastify.register(auditRoutes);
   // V0.6: Real-time WebSocket telemetry (non-camera only)
-  await fastify.register(realtimeRoutes);
+  await 
+  fastify.post('/ws-ticket', { preHandler: parseUserContext }, async (request, reply) => {
+    if (!request.userContext) {
+      return reply.status(401).send({ error: 'Unauthorized' });
+    }
+    const ticket = await generateWsTicket(request.userContext.user_id, request.userContext.role, request.userContext.permissions);
+    return { ticket };
+  });
+
+  fastify.register(realtimeRoutes);
 }
 
