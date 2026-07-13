@@ -230,7 +230,7 @@ export const mockCameras: any[] = [
     latitude: 37.937,
     longitude: -122.348,
     owner_id: "Chevron",
-    authorization_sensor_category: 'camera', registration_status: 'active', status: "verified",
+    authorization_status: "verified",
     authorized_at: new Date().toISOString(),
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
@@ -243,7 +243,7 @@ export const mockCameras: any[] = [
     latitude: 37.934,
     longitude: -122.343,
     owner_id: "Chevron",
-    authorization_sensor_category: 'camera', registration_status: 'active', status: "verified",
+    authorization_status: "verified",
     authorized_at: new Date().toISOString(),
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
@@ -256,7 +256,7 @@ export const mockCameras: any[] = [
     latitude: 36.809,
     longitude: -121.787,
     owner_id: "PG&E",
-    authorization_sensor_category: 'camera', registration_status: 'active', status: "verified",
+    authorization_status: "verified",
     authorized_at: new Date().toISOString(),
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
@@ -269,7 +269,7 @@ export const mockCameras: any[] = [
     latitude: 33.742,
     longitude: -118.262,
     owner_id: "PacificGas",
-    authorization_sensor_category: 'camera', registration_status: 'active', status: "pending",
+    authorization_status: "pending",
     authorized_at: null,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
