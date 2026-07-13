@@ -1,4 +1,4 @@
-# Tasks: Post-Merge Phase 0 Closure Evidence Audit & Rescue Stabilization Sprint
+# Tasks: Post-Merge Phase 0 Closure Audit & Rescue Stabilization Sprint
 
 - `[x]` Audit GitHub Governance (CODEOWNERS, branch protection settings)
 - `[x]` Set up clean-clone directory at `D:\QSightCleanVerification` and checkout `9b0de39`
@@ -18,3 +18,8 @@
 - `[x]` Clean-clone verification in `D:\QSightRescueCleanVerification`
 - `[x]` Generate all rescue evidence files
 - `[x]` Commit & Push `fix/phase0-rescue-stabilization` to origin
+- `[x]` Pull latest `develop` branch and merge `fix/phase0-rescue-stabilization`
+- `[x]` Re-run full Phase 0 closure audit in `D:\QSightClosureCleanVerification`
+- `[x]` Push updated `develop` branch and merge to `main`
+- `[x]` Create `docs/audit/PHASE_0_ACCEPTANCE_NOTE.md`
+- `[x]` Create `docs/audit/PHASE_0_REMAINING_ENTERPRISE_GAPS.md`
