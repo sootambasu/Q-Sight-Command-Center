@@ -1,7 +1,7 @@
 # Q-Sight Command Center — Final Handover Document (v1.0 Pilot/Staging Release)
 
 ## Project Overview
-Q-Sight Command Center is an enterprise-grade Industrial Spatial Intelligence dashboard designed for monitoring non-human assets, logistics, environmental risks, and industrial safety operations. It visualizes data from aviation, orbital, seismic, and asset registries on a 3D high-contrast CesiumJS globe.
+Q-Sight Command Center is an  Industrial Spatial Intelligence dashboard designed for monitoring non-human assets, logistics, environmental risks, and industrial safety operations. It visualizes data from aviation, orbital, seismic, and asset registries on a 3D high-contrast CesiumJS globe.
 
 ## Architecture Summary
 The system is built as an npm workspaces monorepo:
@@ -16,7 +16,7 @@ The system is built as an npm workspaces monorepo:
 *   **Real-Time Data**: WebSocket telemetry feeds with automatic reconnection and fallback to safe HTTP polling.
 *   **RBAC (Role-Based Access Control)**: Enforces access restrictions (Operator, Supervisor, Auditor, Admin) seamlessly.
 *   **Demo Mode**: Guided scenarios with step-by-step walkthroughs to demonstrate system logic without relying on live APIs.
-*   **Audit Logging**: Immutable tracking of sensitive queries, WebSocket subscriptions, and denied access attempts.
+*   **Audit Logging**: Append-only tracking of sensitive queries, WebSocket subscriptions, and denied access attempts.
 *   **Health & Readiness Monitoring**: `/ready` and `/version` endpoints facilitate orchestration integration (e.g., Kubernetes probes).
 *   **Static Safety Auditing**: Static check script scans codebase for privacy and feature bans.
 

@@ -77,7 +77,7 @@ CREATE TABLE authorized_cameras (
 
 CREATE INDEX idx_cameras_location ON authorized_cameras USING GIST(location);
 
--- 6. Access Audit Logs Table (immutable logs tracking view histories of sensitive assets & feeds)
+-- 6. Access Audit Logs Table (append-only logs tracking view histories of sensitive assets & feeds)
 CREATE TABLE audit_logs (
     id BIGSERIAL PRIMARY KEY,
     operator_id VARCHAR(100) NOT NULL, -- Logged-in operator ID
