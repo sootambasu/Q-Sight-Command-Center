@@ -11,8 +11,14 @@
 
 ## 2. Acceptance Metrics
 
-* **Accepted Commit:** `v0.1.0-phase0-accepted` (SHA: `4e31ee5ac031db1459364ec893d77e58889904f7`)
+* **Accepted Code Commit:** `4e31ee5ac031db1459364ec893d77e58889904f7`
+* **Acceptance Documentation / Tag Commit:** `6fe385ac605db02c98d68962ad9b068065bfd5c1`
+* **Accepted Tag:** `v0.1.0-phase0-accepted`
 * **Clean-Clone Verification Location:** `D:\QSightClosureCleanVerification`
+
+> [!NOTE]
+> Commit `4e31ee5` represents the code-complete product state that was verified as fully building, typechecking, and passing all tests in clean clones. Commit `6fe385a` (where tag `v0.1.0-phase0-accepted` is positioned) only contains subsequent acceptance documentation updates and tag alignment fixes.
+
 
 ---
 
