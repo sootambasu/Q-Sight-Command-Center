@@ -57,32 +57,22 @@ export const SeismicEventSchema = z.object({
 
 // =============================================================================
 // Sensor Registry Entry Schema
-// Migrated from AuthorizedCameraRegistryEntrySchema (migration 005, 2026-07-13).
-// Prohibited fields removed: stream_url, verification_hash
-// Complies with Q-Sight P0 Scope Policy: no stream URLs, no access credentials,
-// no API tokens, no cryptographic hashes presented as proof of ownership.
-// Biometrics, facial recognition, and person tracking remain explicitly excluded.
+// Complies with strict privacy bounds: no facial recognition, biometrics, or tracking fields.
 // =============================================================================
 export const SensorRegistryEntrySchema = z.object({
   id: z.string().uuid().optional(),
   asset_id: z.string().uuid().nullable().optional(),
   name: z.string().min(1, 'Sensor name is required'),
-  sensor_category: z.string().min(1).default('camera'), // e.g., 'camera', 'environmental', 'seismic', 'thermal'
+  sensor_category: z.string().min(1).default('camera'),
   status: z.enum(['online', 'offline', 'disabled']).default('offline'),
+  registration_status: z.string().min(1).default('registered'),
   latitude: z.number().min(-90).max(90),
   longitude: z.number().min(-180).max(180),
   owner_id: z.string().min(1, 'Owner operator/company ID is required'),
   authorization_status: z.enum(['pending', 'verified', 'revoked']).default('pending'),
-  registration_status: z.string().optional().default('registered'),
   authorized_at: z.union([z.string(), z.date()]).nullable().optional(),
   created_at: z.union([z.string(), z.date()]).optional(),
   updated_at: z.union([z.string(), z.date()]).optional()
-  // PROHIBITED — the following fields must NEVER be added back:
-  // stream_url        — secret access credential
-  // verification_hash — cryptographic secret
-  // access_token      — authentication credential
-  // api_key           — authentication credential
-  // playback_config   — stream configuration
 });
 
 /**
