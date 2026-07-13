@@ -4,29 +4,30 @@ import { requirePermission } from '../auth/requirePermission';
 import { logAuditEvent } from '../audit/auditLogger';
 
 // Pre-defined mock audit logs for development fallback when database is missing
+// Updated 2026-07-13 (migration 005): action names updated from camera_* to sensor_*
 const mockAuditLogs = [
   {
     id: 1,
     operator_id: 'dev_operator',
     role: 'operator',
-    action: 'camera_view_redacted',
-    target_type: 'camera',
+    action: 'sensor_metadata_view_redacted',
+    target_type: 'sensor_metadata',
     target_id: '1c2d3e4f-5678-490a-bcde-f12345678901',
     request_id: 'req_mock_1',
-    route: '/api/cameras/authorized',
-    metadata: { message: 'Camera metadata restricted by role' },
+    route: '/api/sensors/registry',
+    metadata: { message: 'Sensor metadata restricted by role' },
     timestamp: new Date(Date.now() - 3600000).toISOString()
   },
   {
     id: 2,
     operator_id: 'dev_supervisor',
     role: 'supervisor',
-    action: 'camera_view_authorized',
-    target_type: 'camera',
+    action: 'sensor_metadata_view_authorized',
+    target_type: 'sensor_metadata',
     target_id: '1c2d3e4f-5678-490a-bcde-f12345678901',
     request_id: 'req_mock_2',
-    route: '/api/cameras/authorized',
-    metadata: { camera_name: 'Refinery Perimeter North' },
+    route: '/api/sensors/registry',
+    metadata: { sensor_name: 'Refinery Perimeter North' },
     timestamp: new Date(Date.now() - 1800000).toISOString()
   },
   {
@@ -182,11 +183,12 @@ export async function auditRoutes(fastify: FastifyInstance) {
 
     if (!pool) {
       // Build mock summary from mock items
+      // Updated 2026-07-13 (migration 005): action/target_type names updated to sensor_*
       const summaryItems = [
-        { group_type: 'action', key: 'camera_view_redacted', count: 1 },
-        { group_type: 'action', key: 'camera_view_authorized', count: 1 },
+        { group_type: 'action', key: 'sensor_metadata_view_redacted', count: 1 },
+        { group_type: 'action', key: 'sensor_metadata_view_authorized', count: 1 },
         { group_type: 'action', key: 'access_denied', count: 1 },
-        { group_type: 'target_type', key: 'camera', count: 2 },
+        { group_type: 'target_type', key: 'sensor_metadata', count: 2 },
         { group_type: 'target_type', key: 'endpoint', count: 1 },
         { group_type: 'role', key: 'operator', count: 2 },
         { group_type: 'role', key: 'supervisor', count: 1 }
