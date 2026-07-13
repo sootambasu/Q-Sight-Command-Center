@@ -1,7 +1,10 @@
 # Post-Merge A8 Verification Report
 
 ## 1. Executive Summary
-This report verifies the baseline build, compilation, and static configuration of the stabilization release candidate `fix/phase0-rescue-stabilization` branch.
+This report verifies the baseline build, compilation, and static configuration of the merged stabilization release candidate (`develop` branch).
+
+* **Commit SHA:** `9ce53c13aab98321844e24a42f6c44f9c4d9607b`
+* **Verification Location:** `D:\QSightClosureCleanVerification`
 
 **Verification Status: PASS**
 
@@ -28,3 +31,8 @@ This report verifies the baseline build, compilation, and static configuration o
 * **Control:** Safety scanner checks code for forbidden camera/telemetry tracking.
 * **Status:** **PASS**
 * **Evidence:** `node scripts/verify_safety_guardrails.js` returns zero issues.
+
+### 2.5. Staging Docker Builds
+* **Control:** Verify staging docker images build successfully.
+* **Status:** **PASS**
+* **Evidence:** `docker compose -f infra/docker-compose.prototype.yml build` succeeds cleanly for both `infra-api` and `infra-web`.

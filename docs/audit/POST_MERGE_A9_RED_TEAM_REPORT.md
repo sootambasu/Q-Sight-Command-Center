@@ -1,7 +1,7 @@
 # Post-Merge A9 Red-Team Report
 
 ## 1. Security Assessment Summary
-The Red-Team has reviewed the security mitigations on the `fix/phase0-rescue-stabilization` branch.
+The Red-Team has reviewed the security mitigations on the merged `develop` branch (SHA `9ce53c1`).
 
 **Security Status: PASS**
 
@@ -12,7 +12,7 @@ The Red-Team has reviewed the security mitigations on the `fix/phase0-rescue-sta
 ### 2.1. WebSocket Authentication
 * **Control:** Require OIDC/JWT symmetric validation for WebSockets to prevent query param role spoofing.
 * **Status:** **PASS**
-* **Findings:** The server successfully enforces that a valid ticket obtained via REST `/ws-ticket` is present in the `preValidation` hook of the upgrade handler. Direct connection attempts without tickets or with spoofed query parameters are blocked with HTTP `401 Unauthorized`.
+* **Findings:** The server successfully enforces that a valid ticket obtained via REST `/ws-ticket` is present in the `preValidation` hook of the upgrade handler. Direct connection attempts without tickets or with spoofed query parameters are blocked with HTTP `401 Unauthorized` before the upgrade handshake.
 
 ### 2.2. Camera Scope and Privacy Boundary
 * **Control:** Verify camera feeds, biometrics, and facial recognition are absent from WebSocket transmissions.
