@@ -49,7 +49,7 @@ This checklist defines the validation criteria for preparing the Q-Sight Command
   - `admin`: All assets, logs, and cameras accessible.
 
 ## 7. Audit Log Verification
-- [ ] Actions like `camera_view`, `data_export`, `boundary_zoom`, and `ws_subscription` write immutable records to the `audit_logs` table.
+- [ ] Actions like `camera_view`, `data_export`, `boundary_zoom`, and `ws_subscription` write append-only records to the `audit_logs` table.
 - [ ] Logs capture request IDs, operator roles, target resource IDs, and timestamps.
 - [ ] Attempting to delete or update any record in `audit_logs` throws a database permission error.
 
