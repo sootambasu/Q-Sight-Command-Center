@@ -1,0 +1,707 @@
+
+> q-sight-command-center@0.1.0 pilot:verify
+> npm run build && npm run typecheck && npm run build:web && npm run verify:static && node scripts/verify_ingestion.js && node scripts/ws_verify.js
+
+
+> q-sight-command-center@0.1.0 build
+> npm run build:shared && npm run build:api && npm run build:workers
+
+
+> q-sight-command-center@0.1.0 build:shared
+> npm run build -w packages/shared
+
+
+> @q-sight/shared@0.1.0 build
+> tsc
+
+
+> q-sight-command-center@0.1.0 build:api
+> npm run build -w apps/api
+
+
+> @q-sight/api@0.1.0 build
+> tsc
+
+
+> q-sight-command-center@0.1.0 build:workers
+> npm run build -w workers/opensky-ingestor && npm run build -w workers/satellite-ingestor && npm run build -w workers/earthquake-ingestor
+
+
+> @q-sight/opensky-ingestor@0.1.0 build
+> tsc
+
+
+> @q-sight/satellite-ingestor@0.1.0 build
+> tsc
+
+
+> @q-sight/earthquake-ingestor@0.1.0 build
+> tsc
+
+
+> q-sight-command-center@0.1.0 typecheck
+> npm run typecheck -w packages/shared && npm run typecheck -w apps/api && npm run typecheck -w workers/opensky-ingestor && npm run typecheck -w workers/satellite-ingestor && npm run typecheck -w workers/earthquake-ingestor
+
+
+> @q-sight/shared@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/api@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/opensky-ingestor@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/satellite-ingestor@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/earthquake-ingestor@0.1.0 typecheck
+> tsc --noEmit
+
+
+> q-sight-command-center@0.1.0 build:web
+> npm run build -w apps/web
+
+
+> @q-sight/web@0.1.0 build
+> tsc && vite build
+
+[36mvite v5.4.21 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 39 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                 [39m[1m[2m  0.68 kB[22m[1m[22m[2m │ gzip:  0.39 kB[22m
+[2mdist/[22m[35massets/index-Bwy9EhVx.css  [39m[1m[2m 43.79 kB[22m[1m[22m[2m │ gzip:  9.09 kB[22m
+[2mdist/[22m[36massets/index-BUGzLbAn.js   [39m[1m[2m208.41 kB[22m[1m[22m[2m │ gzip: 60.99 kB[22m
+[32m✓ built in 1.00s[39m
+
+> q-sight-command-center@0.1.0 verify:static
+> npm run build && npm run typecheck && npm run worker:opensky:mock && npm run worker:satellite:mock && npm run worker:earthquake:mock && npm run verify:web
+
+
+> q-sight-command-center@0.1.0 build
+> npm run build:shared && npm run build:api && npm run build:workers
+
+
+> q-sight-command-center@0.1.0 build:shared
+> npm run build -w packages/shared
+
+
+> @q-sight/shared@0.1.0 build
+> tsc
+
+
+> q-sight-command-center@0.1.0 build:api
+> npm run build -w apps/api
+
+
+> @q-sight/api@0.1.0 build
+> tsc
+
+
+> q-sight-command-center@0.1.0 build:workers
+> npm run build -w workers/opensky-ingestor && npm run build -w workers/satellite-ingestor && npm run build -w workers/earthquake-ingestor
+
+
+> @q-sight/opensky-ingestor@0.1.0 build
+> tsc
+
+
+> @q-sight/satellite-ingestor@0.1.0 build
+> tsc
+
+
+> @q-sight/earthquake-ingestor@0.1.0 build
+> tsc
+
+
+> q-sight-command-center@0.1.0 typecheck
+> npm run typecheck -w packages/shared && npm run typecheck -w apps/api && npm run typecheck -w workers/opensky-ingestor && npm run typecheck -w workers/satellite-ingestor && npm run typecheck -w workers/earthquake-ingestor
+
+
+> @q-sight/shared@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/api@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/opensky-ingestor@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/satellite-ingestor@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/earthquake-ingestor@0.1.0 typecheck
+> tsc --noEmit
+
+
+> q-sight-command-center@0.1.0 worker:opensky:mock
+> npm run start:mock -w workers/opensky-ingestor
+
+
+> @q-sight/opensky-ingestor@0.1.0 start:mock
+> tsx src/index.ts
+
+{"event":"ingestion_run_started","type":"aircraft","mode":"live","timestamp":"2026-06-30T08:30:29.732Z"}
+{"event":"ingestion_records_skipped","type":"aircraft","count":5,"errors":["Record validation error: Invalid longitude coordinate","Record validation error: Invalid longitude coordinate","Record validation error: [\n  {\n    \"code\": \"too_small\",\n    \"minimum\": 1,\n    \"type\": \"string\",\n    \"inclusive\": true,\n    \"exact\": false,\n    \"message\": \"Origin country is required\",\n    \"path\": [\n      \"origin_country\"\n    ]\n  }\n]","Record validation error: Invalid longitude coordinate","Record validation error: Invalid longitude coordinate"],"timestamp":"2026-06-30T08:30:29.732Z"}
+{"event":"database_write_failed","type":"aircraft","message":{"code":"ECONNREFUSED"},"timestamp":"2026-06-30T08:30:29.732Z"}
+{"event":"ingestion_run_completed","type":"aircraft","source":"live","count":495,"timestamp":"2026-06-30T08:30:29.732Z"}
+
+> q-sight-command-center@0.1.0 worker:satellite:mock
+> npm run start:mock -w workers/satellite-ingestor
+
+
+> @q-sight/satellite-ingestor@0.1.0 start:mock
+> tsx src/index.ts
+
+{"event":"ingestion_run_started","type":"satellite","mode":"live","timestamp":"2026-06-30T08:30:33.146Z"}
+{"event":"ingestion_run_failed","type":"satellite","message":"Live ingestion failed: HTTP error! Status: 503. Falling back to mock data.","timestamp":"2026-06-30T08:30:33.146Z"}
+{"event":"database_write_failed","type":"satellite","message":{"code":"ECONNREFUSED"},"timestamp":"2026-06-30T08:30:33.146Z"}
+{"event":"ingestion_run_completed","type":"satellite","source":"mock","count":3,"timestamp":"2026-06-30T08:30:33.146Z"}
+
+> q-sight-command-center@0.1.0 worker:earthquake:mock
+> npm run start:mock -w workers/earthquake-ingestor
+
+
+> @q-sight/earthquake-ingestor@0.1.0 start:mock
+> tsx src/index.ts
+
+{"event":"ingestion_run_started","type":"seismic","mode":"live","timestamp":"2026-06-30T08:30:35.631Z"}
+{"event":"database_write_failed","type":"seismic","message":{"code":"ECONNREFUSED"},"timestamp":"2026-06-30T08:30:35.631Z"}
+{"event":"ingestion_run_completed","type":"seismic","source":"live","count":29,"timestamp":"2026-06-30T08:30:35.631Z"}
+
+> q-sight-command-center@0.1.0 verify:web
+> npm run typecheck:web && npm run build:web
+
+
+> q-sight-command-center@0.1.0 typecheck:web
+> npm run typecheck -w apps/web
+
+
+> @q-sight/web@0.1.0 typecheck
+> tsc --noEmit
+
+
+> q-sight-command-center@0.1.0 build:web
+> npm run build -w apps/web
+
+
+> @q-sight/web@0.1.0 build
+> tsc && vite build
+
+[36mvite v5.4.21 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 39 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                 [39m[1m[2m  0.68 kB[22m[1m[22m[2m │ gzip:  0.39 kB[22m
+[2mdist/[22m[35massets/index-Bwy9EhVx.css  [39m[1m[2m 43.79 kB[22m[1m[22m[2m │ gzip:  9.09 kB[22m
+[2mdist/[22m[36massets/index-BUGzLbAn.js   [39m[1m[2m208.41 kB[22m[1m[22m[2m │ gzip: 60.99 kB[22m
+[32m✓ built in 917ms[39m
+
+=== Running Ingestion Verification Tests ===
+
+Running: Aircraft: Live disabled fallback to mock...
+{"event":"ingestion_run_started","type":"aircraft","mode":"mock","timestamp":"2026-06-30T08:30:42.707Z"}
+{"event":"database_write_skipped","type":"aircraft","reason":"No DB URL","timestamp":"2026-06-30T08:30:42.707Z"}
+{"event":"ingestion_run_completed","type":"aircraft","source":"mock","count":4,"timestamp":"2026-06-30T08:30:42.707Z"}
+PASS: Aircraft: Live disabled fallback to mock
+
+Running: Aircraft: Live enabled but source URL missing...
+{"event":"ingestion_run_started","type":"aircraft","mode":"live","timestamp":"2026-06-30T08:30:42.812Z"}
+{"event":"ingestion_warning","type":"aircraft","message":"AIRCRAFT_SOURCE_URL is missing. Falling back to mock data.","timestamp":"2026-06-30T08:30:42.812Z"}
+{"event":"database_write_skipped","type":"aircraft","reason":"No DB URL","timestamp":"2026-06-30T08:30:42.812Z"}
+{"event":"ingestion_run_completed","type":"aircraft","source":"mock","count":4,"timestamp":"2026-06-30T08:30:42.812Z"}
+PASS: Aircraft: Live enabled but source URL missing
+
+Running: Aircraft: Invalid URL timeout/failure handling...
+{"event":"ingestion_run_started","type":"aircraft","mode":"live","timestamp":"2026-06-30T08:30:42.926Z"}
+{"event":"ingestion_run_failed","type":"aircraft","message":"Live ingestion failed: Request timed out after 10000ms. Falling back to mock data.","timestamp":"2026-06-30T08:30:42.926Z"}
+{"event":"database_write_skipped","type":"aircraft","reason":"No DB URL","timestamp":"2026-06-30T08:30:42.926Z"}
+{"event":"ingestion_run_completed","type":"aircraft","source":"mock","count":4,"timestamp":"2026-06-30T08:30:42.926Z"}
+PASS: Aircraft: Invalid URL timeout/failure handling
+
+Running: Aircraft: Malformed records skipped and valid processed...
+{"event":"ingestion_run_started","type":"aircraft","mode":"live","timestamp":"2026-06-30T08:30:43.036Z"}
+{"event":"ingestion_records_skipped","type":"aircraft","count":2,"errors":["Record validation error: Invalid longitude coordinate","Record validation error: State array too short or invalid"],"timestamp":"2026-06-30T08:30:43.036Z"}
+{"event":"database_write_skipped","type":"aircraft","reason":"Write flag disabled","timestamp":"2026-06-30T08:30:43.036Z"}
+{"event":"ingestion_run_completed","type":"aircraft","source":"live","count":0,"timestamp":"2026-06-30T08:30:43.036Z"}
+PASS: Aircraft: Malformed records skipped and valid processed
+
+Running: Satellite: Valid TLE parsing and DB write...
+{"event":"ingestion_run_started","type":"satellite","mode":"live","timestamp":"2026-06-30T08:30:43.150Z"}
+{"event":"database_write_completed","type":"satellite","count":1,"timestamp":"2026-06-30T08:30:43.150Z"}
+{"event":"ingestion_run_completed","type":"satellite","source":"live","count":1,"timestamp":"2026-06-30T08:30:43.150Z"}
+PASS: Satellite: Valid TLE parsing and DB write
+
+Running: Satellite: Malformed TLE skipped...
+{"event":"ingestion_run_started","type":"satellite","mode":"live","timestamp":"2026-06-30T08:30:43.255Z"}
+{"event":"ingestion_records_skipped","type":"satellite","count":1,"errors":["TLE parse error for block starting with \"BAD SATELLITE\": NORAD ID mismatch: 99999 vs 00000"],"timestamp":"2026-06-30T08:30:43.255Z"}
+{"event":"database_write_skipped","type":"satellite","reason":"Write flag disabled","timestamp":"2026-06-30T08:30:43.255Z"}
+{"event":"ingestion_run_completed","type":"satellite","source":"live","count":0,"timestamp":"2026-06-30T08:30:43.255Z"}
+PASS: Satellite: Malformed TLE skipped
+
+Running: Seismic: Valid GeoJSON parsing and DB write...
+{"event":"ingestion_run_started","type":"seismic","mode":"live","timestamp":"2026-06-30T08:30:43.367Z"}
+{"event":"database_write_completed","type":"seismic","count":1,"timestamp":"2026-06-30T08:30:43.367Z"}
+{"event":"ingestion_run_completed","type":"seismic","source":"live","count":1,"timestamp":"2026-06-30T08:30:43.367Z"}
+PASS: Seismic: Valid GeoJSON parsing and DB write
+
+Running: Safety: Verify no camera/video/person fields are output in telemetry...
+{"event":"ingestion_run_started","type":"aircraft","mode":"live","timestamp":"2026-06-30T08:30:43.484Z"}
+{"event":"database_write_completed","type":"aircraft","count":1,"timestamp":"2026-06-30T08:30:43.484Z"}
+{"event":"ingestion_run_completed","type":"aircraft","source":"live","count":1,"timestamp":"2026-06-30T08:30:43.484Z"}
+PASS: Safety: Verify no camera/video/person fields are output in telemetry
+
+=== Ingestion Verification Results ===
+Passed: 8
+Failed: 0
+Total: 8
+
+🎉 All Ingestion Verification tests passed successfully!
+
+=== Q-Sight V0.6 WebSocket Verification ===
+
+Test 1: Operator connection and subscription...
+  ✅ PASS: [operator] Connected — system.websocket.connected received
+  ✅ PASS: [operator] Role correctly set to 'operator' in connected payload
+  ✅ PASS: [operator] Subscription granted channels: [telemetry.aircraft,telemetry.satellite,telemetry.seismic,alerts.geofence]
+
+Test 2: Auditor RBAC channel denial...
+  ✅ PASS: [auditor] Connected — system.websocket.connected received
+  ✅ PASS: [auditor] Role correctly set to 'auditor' in connected payload
+  ✅ PASS: [auditor] Auditor has no allowed channels (correct RBAC enforcement)
+  ✅ PASS: [auditor] Subscription denied channels as expected: [telemetry.aircraft,alerts.geofence]
+  ℹ️  WS error received for [auditor]: Operational telemetry channels are not permitted for the auditor role.
+
+Test 3: Admin full access...
+  ✅ PASS: [admin] Connected — system.websocket.connected received
+  ✅ PASS: [admin] Role correctly set to 'admin' in connected payload
+  ✅ PASS: [admin] Subscription granted channels: [telemetry.aircraft,telemetry.satellite,telemetry.seismic,alerts.geofence]
+
+Test 4: REST API telemetry still functional...
+  ✅ PASS: [REST] /health endpoint returns ok status
+  ✅ PASS: [REST] /api/telemetry/aircraft returns 4 records
+  ✅ PASS: [REST] Auditor correctly blocked from /api/telemetry/aircraft (403)
+
+Test 5: Verify camera channels are absent from WS allowed channels...
+  ✅ PASS: [SAFETY] No camera channels in WebSocket allowed_channels (privacy guardrail)
+
+========================================
+RESULTS: 14 passed, 0 failed out of 14 tests
+
+🎉 All V0.6 WebSocket tests passed!
+
+> q-sight-command-center@0.1.0 pilot:live-check
+> node scripts/verify_live_sources.js
+
+====================================================
+Q-Sight Live Open-Data Telemetry Verification
+====================================================
+LIVE_INGESTION_ENABLED: true
+SEISMIC_LIVE_ENABLED: true
+SATELLITE_LIVE_ENABLED: true
+AIRCRAFT_LIVE_ENABLED: true
+LIVE_INGESTOR_WRITE_TO_DB: true
+Timeout Limit: 10000ms
+
+--- VERIFYING SEISMIC SOURCE ---
+URL: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson
+Magnitude threshold: >= 2.5
+HTTP Status: 200 (Fetched successfully)
+Records fetched (analyzed): 29
+Records accepted: 29
+Records filtered/skipped: 0
+Sample accepted record: {
+  "usgs_id": "aka2026muxhjv",
+  "place": "12 km ESE of Eagle River, Alaska",
+  "magnitude": 2.9,
+  "depth_km": 15.2,
+  "event_time": 1782798019576,
+  "latitude": 61.274,
+  "longitude": -149.365
+}
+
+--- VERIFYING SATELLITE SOURCE ---
+URL: https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle
+[DEGRADED] Satellite fetch failed: HTTP error! Status: 503. Falling back to mock.
+
+--- VERIFYING AIRCRAFT SOURCE ---
+URL: https://opensky-network.org/api/states/all
+Auth credentials provided: YES
+HTTP Status: 200 (Fetched successfully)
+Records fetched (analyzed): 500
+Records accepted: 494
+Records skipped: 6
+Sample accepted record: {
+  "icao24": "e8027c",
+  "callsign": "LPE2376",
+  "origin_country": "Chile",
+  "altitude_meters": 10370.82,
+  "velocity_mps": 193.99,
+  "heading_degrees": 316.83,
+  "latitude": -28.9232,
+  "longitude": -62.9528,
+  "last_contact": 1782808242
+}
+
+====================================================
+✅ VERIFICATION COMPLETED (Third-party downtime/degradation is handled gracefully).
+
+> q-sight-command-center@0.1.0 safety:verify
+> node scripts/verify_safety_guardrails.js
+
+(node:43236) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/Q-Sight%20Command%20Center/scripts/verify_safety_guardrails.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to D:\Q-Sight Command Center\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+🛡️ Starting Safety Guardrails Verification Scanner...
+   Scanning directory: apps/web/src
+   Scanning directory: apps/api/src
+   Scanning directory: workers
+   Scanning directory: packages
+   Scanning directory: infra
+   Scanning directory: scripts
+   Scanning config file: .env.example
+   Scanning config file: .env.demo.example
+   Scanning config file: .env.live.example
+   Scanning config file: .env.staging.example
+
+==================================================
+✅ Safety Verification PASSED. No forbidden patterns detected in code/configs.
+
+> q-sight-command-center@0.1.0 pilot:docker:config
+> docker compose -f infra/docker-compose.prototype.yml config
+
+time="2026-06-30T14:00:58+05:30" level=warning msg="D:\\Q-Sight Command Center\\infra\\docker-compose.prototype.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+name: infra
+services:
+  api:
+    build:
+      context: D:\Q-Sight Command Center
+      dockerfile: apps/api/Dockerfile
+    container_name: qsight-prototype-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+        required: true
+    environment:
+      AIRCRAFT_LIVE_ENABLED: "true"
+      AIRCRAFT_SOURCE_PASSWORD: ""
+      AIRCRAFT_SOURCE_URL: https://opensky-network.org/api/states/all
+      AIRCRAFT_SOURCE_USERNAME: ""
+      API_PORT: "4000"
+      AUDIT_LOGGING_ENABLED: "true"
+      CESIUM_ION_TOKEN: your_cesium_ion_token_here
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/qsight?schema=public
+      GOOGLE_MAPS_API_KEY: your_google_maps_api_key_here
+      INGESTION_INTERVAL_AIRCRAFT_MS: "30000"
+      INGESTION_INTERVAL_SATELLITE_MS: "300000"
+      INGESTION_INTERVAL_SEISMIC_MS: "60000"
+      INGESTION_MAX_RECORDS_PER_RUN: "500"
+      INGESTION_REQUEST_TIMEOUT_MS: "10000"
+      JWT_SECRET: your_secure_jwt_secret_here
+      LIVE_INGESTION_ENABLED: "true"
+      LIVE_INGESTOR_WRITE_TO_DB: "true"
+      MOCK_INGESTOR_WRITE_TO_DB: "false"
+      NODE_ENV: development
+      OPENSKY_PASSWORD: your_opensky_password_here
+      OPENSKY_USERNAME: your_opensky_username_here
+      POSTGRES_DB: qsight
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      SATELLITE_GROUPS: stations
+      SATELLITE_LIVE_ENABLED: "true"
+      SATELLITE_TLE_SOURCE_URL: https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle
+      SECURITY_STRICT_FEED_VERIFICATION: "true"
+      SEISMIC_LIVE_ENABLED: "true"
+      SEISMIC_MIN_MAGNITUDE: "2.5"
+      SEISMIC_SOURCE_URL: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson
+      USGS_EARTHQUAKE_FEED_URL: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson
+      VITE_REALTIME_ENABLED: "true"
+      VITE_WS_URL: ws://localhost:4000/ws/realtime
+      WEB_PORT: "3000"
+      WS_ENABLED: "true"
+      WS_HEARTBEAT_MS: "25000"
+      WS_MOCK_BROADCAST_MS: "7000"
+      WS_PORT: "4001"
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 4000
+        published: "4000"
+        protocol: tcp
+  postgres:
+    container_name: qsight-prototype-postgis
+    environment:
+      POSTGRES_DB: qsight
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U postgres -d qsight
+      timeout: 5s
+      interval: 10s
+      retries: 5
+    image: postgis/postgis:15-3.3
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5432
+        published: "5432"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: pgdata
+        target: /var/lib/postgresql/data
+        volume: {}
+      - type: bind
+        source: D:\Q-Sight Command Center\infra\postgres\init
+        target: /docker-entrypoint-initdb.d
+        bind: {}
+  web:
+    build:
+      context: D:\Q-Sight Command Center
+      dockerfile: apps/web/Dockerfile
+    container_name: qsight-prototype-web
+    depends_on:
+      api:
+        condition: service_started
+        required: true
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "5173"
+        protocol: tcp
+networks:
+  default:
+    name: infra_default
+volumes:
+  pgdata:
+    name: infra_pgdata
+    driver: local
+
+> q-sight-command-center@0.1.0 pilot:docker:build
+> docker compose -f infra/docker-compose.prototype.yml build
+
+time="2026-06-30T14:00:58+05:30" level=warning msg="D:\\Q-Sight Command Center\\infra\\docker-compose.prototype.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Image infra-api Building 
+ Image infra-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 913B done
+#1 DONE 0.0s
+
+#2 [web internal] load build definition from Dockerfile
+#2 transferring dockerfile: 522B done
+#2 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 1)
+#2 DONE 0.0s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 427B done
+#3 DONE 0.0s
+
+#4 [api internal] load metadata for docker.io/library/node:20-alpine
+#4 ...
+
+#5 [web internal] load metadata for docker.io/library/nginx:alpine
+#5 DONE 1.9s
+
+#4 [api internal] load metadata for docker.io/library/node:20-alpine
+#4 DONE 1.9s
+
+#6 [web internal] load .dockerignore
+#6 transferring context: 2B done
+#6 DONE 0.0s
+
+#7 [web internal] load build context
+#7 ...
+
+#8 [web 1/5] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#8 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 0.0s done
+#8 DONE 0.1s
+
+#9 [web stage-1 1/3] FROM docker.io/library/nginx:alpine@sha256:54f2a904c251d5a34adf545a72d32515a15e08418dae0266e23be2e18c66fefa
+#9 resolve docker.io/library/nginx:alpine@sha256:54f2a904c251d5a34adf545a72d32515a15e08418dae0266e23be2e18c66fefa 0.0s done
+#9 DONE 0.1s
+
+#7 [web internal] load build context
+#7 transferring context: 1.15MB 0.5s done
+#7 DONE 0.5s
+
+#10 [web 2/5] WORKDIR /app
+#10 CACHED
+
+#11 [api 3/5] COPY . .
+#11 DONE 1.3s
+
+#12 [api 4/5] RUN npm install
+#12 0.873 npm warn EBADENGINE Unsupported engine {
+#12 0.873 npm warn EBADENGINE   package: '@cesium/engine@26.0.0',
+#12 0.873 npm warn EBADENGINE   required: { node: '>=22.0.0' },
+#12 0.873 npm warn EBADENGINE   current: { node: 'v20.20.2', npm: '10.8.2' }
+#12 0.873 npm warn EBADENGINE }
+#12 0.874 npm warn EBADENGINE Unsupported engine {
+#12 0.874 npm warn EBADENGINE   package: '@cesium/widgets@16.0.0',
+#12 0.874 npm warn EBADENGINE   required: { node: '>=22.0.0' },
+#12 0.874 npm warn EBADENGINE   current: { node: 'v20.20.2', npm: '10.8.2' }
+#12 0.874 npm warn EBADENGINE }
+#12 0.875 npm warn EBADENGINE Unsupported engine {
+#12 0.875 npm warn EBADENGINE   package: 'cesium@1.142.0',
+#12 0.875 npm warn EBADENGINE   required: { node: '>=22.0.0' },
+#12 0.875 npm warn EBADENGINE   current: { node: 'v20.20.2', npm: '10.8.2' }
+#12 0.875 npm warn EBADENGINE }
+#12 3.309 
+#12 3.309 added 3 packages, removed 1 package, changed 6 packages, and audited 229 packages in 3s
+#12 3.309 
+#12 3.309 16 packages are looking for funding
+#12 3.309   run `npm fund` for details
+#12 3.330 
+#12 3.330 7 vulnerabilities (1 moderate, 6 high)
+#12 3.330 
+#12 3.330 To address issues that do not require attention, run:
+#12 3.330   npm audit fix
+#12 3.330 
+#12 3.330 To address all issues (including breaking changes), run:
+#12 3.330   npm audit fix --force
+#12 3.330 
+#12 3.330 Run `npm audit` for details.
+#12 3.331 npm notice
+#12 3.331 npm notice New major version of npm available! 10.8.2 -> 11.18.0
+#12 3.331 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.18.0
+#12 3.331 npm notice To update run: npm install -g npm@11.18.0
+#12 3.331 npm notice
+#12 DONE 3.4s
+
+#13 [web builder 5/6] RUN npm run build:shared
+#13 0.507 
+#13 0.507 > q-sight-command-center@0.1.0 build:shared
+#13 0.507 > npm run build -w packages/shared
+#13 0.507 
+#13 0.668 
+#13 0.668 > @q-sight/shared@0.1.0 build
+#13 0.668 > tsc
+#13 0.668 
+#13 DONE 3.3s
+
+#14 [api 5/5] RUN npm run build
+#14 0.493 
+#14 0.493 > q-sight-command-center@0.1.0 build
+#14 0.493 > npm run build:shared && npm run build:api && npm run build:workers
+#14 0.493 
+#14 0.625 
+#14 0.625 > q-sight-command-center@0.1.0 build:shared
+#14 0.625 > npm run build -w packages/shared
+#14 0.625 
+#14 0.776 
+#14 0.776 > @q-sight/shared@0.1.0 build
+#14 0.776 > tsc
+#14 0.776 
+#14 3.421 
+#14 3.421 > q-sight-command-center@0.1.0 build:api
+#14 3.421 > npm run build -w apps/api
+#14 3.421 
+#14 3.624 
+#14 3.624 > @q-sight/api@0.1.0 build
+#14 3.624 > tsc
+#14 3.624 
+#14 7.213 
+#14 7.213 > q-sight-command-center@0.1.0 build:workers
+#14 7.213 > npm run build -w workers/opensky-ingestor && npm run build -w workers/satellite-ingestor && npm run build -w workers/earthquake-ingestor
+#14 7.213 
+#14 7.453 
+#14 7.453 > @q-sight/opensky-ingestor@0.1.0 build
+#14 7.453 > tsc
+#14 7.453 
+#14 ...
+
+#15 [web builder 6/6] RUN npm run build:web
+#15 0.466 
+#15 0.466 > q-sight-command-center@0.1.0 build:web
+#15 0.466 > npm run build -w apps/web
+#15 0.466 
+#15 0.644 
+#15 0.644 > @q-sight/web@0.1.0 build
+#15 0.644 > tsc && vite build
+#15 0.644 
+#15 5.062 vite v5.4.21 building for production...
+#15 5.131 transforming...
+#15 6.240 ✓ 39 modules transformed.
+#15 6.429 rendering chunks...
+#15 ...
+
+#14 [api 5/5] RUN npm run build
+#14 9.544 
+#14 9.544 > @q-sight/satellite-ingestor@0.1.0 build
+#14 9.544 > tsc
+#14 9.544 
+#14 ...
+
+#15 [web builder 6/6] RUN npm run build:web
+#15 6.439 computing gzip size...
+#15 6.448 dist/index.html                   0.68 kB │ gzip:  0.39 kB
+#15 6.448 dist/assets/index-Bwy9EhVx.css   43.79 kB │ gzip:  9.09 kB
+#15 6.448 dist/assets/index-BUGzLbAn.js   208.41 kB │ gzip: 60.99 kB
+#15 6.449 ✓ built in 1.35s
+#15 6.453 copy failed [Error: ENOENT: no such file or directory, stat 'node_modules/cesium/Build/Cesium/Assets'] {
+#15 6.453   errno: -2,
+#15 6.453   code: 'ENOENT',
+#15 6.453   syscall: 'stat',
+#15 6.453   path: 'node_modules/cesium/Build/Cesium/Assets'
+#15 6.453 }
+#15 DONE 6.5s
+
+#16 [web stage-1 2/3] COPY --from=builder /app/apps/web/dist /usr/share/nginx/html
+#16 CACHED
+
+#17 [web stage-1 3/3] COPY infra/nginx/default.conf /etc/nginx/conf.d/default.conf
+#17 CACHED
+
+#18 [web] exporting to image
+#18 exporting layers done
+#18 exporting manifest sha256:a136c666d213901ef5e80d6e36230adda4d4e3e58df502bc091c24e3f86d7da6 done
+#18 exporting config sha256:8dfcac167bdf7ea4d86b865c70fa8987ee9af1567934df82431534518b75d202 done
+#18 exporting attestation manifest sha256:59208ab01d8c6afe844decc1591ee3fae2c31927c44e1dd6740920b7cf38c736 0.0s done
+#18 exporting manifest list sha256:e74a5ba63b53a103c34bf8f62e710300c85d173d7ca798e6e44f57f579827d7d 0.0s done
+#18 naming to docker.io/library/infra-web:latest done
+#18 unpacking to docker.io/library/infra-web:latest 0.0s done
+#18 DONE 0.1s
+
+#19 [web] resolving provenance for metadata file
+#19 DONE 0.0s
+
+#14 [api 5/5] RUN npm run build
+#14 11.49 
+#14 11.49 > @q-sight/earthquake-ingestor@0.1.0 build
+#14 11.49 > tsc
+#14 11.49 
+#14 DONE 12.9s
+
+#20 [api] exporting to image
+#20 exporting layers 9.1s done
+#20 exporting manifest sha256:535b50665e71b8d121363dd184d3e2b951c4c75bfb5352ae46b2317fa76c796a 0.0s done
+#20 exporting config sha256:ab8614691a9dcbbb352faf39b116d36be7d0716e8b5b027a8a0524e3bb24906e 0.0s done
+#20 exporting attestation manifest sha256:34721d4b64cdee2d6e76aa4468ad58d0035efd94bb6b04463b5f3688488a16a9 0.0s done
+#20 exporting manifest list sha256:ec1b0e546be33070a5338f325fd75b80a07240afea0633caf7e02bb62f508b9f 0.0s done
+#20 naming to docker.io/library/infra-api:latest done
+#20 unpacking to docker.io/library/infra-api:latest
+#20 unpacking to docker.io/library/infra-api:latest 2.2s done
+#20 DONE 11.4s
+
+#21 [api] resolving provenance for metadata file
+#21 DONE 0.0s
+ Image infra-api Built 
+ Image infra-web Built 

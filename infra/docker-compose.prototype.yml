@@ -1,0 +1,93 @@
+
+services:
+  postgres:
+    image: postgis/postgis:15-3.3
+    container_name: qsight-prototype-postgis
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: qsight
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ../infra/postgres/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d qsight"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    container_name: qsight-prototype-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - ../.env
+    ports:
+      - "4000:4000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/qsight?schema=public
+
+  web:
+    build:
+      context: ..
+      dockerfile: apps/web/Dockerfile
+    container_name: qsight-prototype-web
+    depends_on:
+      - api
+    ports:
+      - "5173:8080"
+
+  ingest-seismic-once:
+    profiles: ["ingest"]
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    container_name: qsight-ingest-seismic
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - ../.env
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/qsight?schema=public
+    command: ["npm", "run", "start", "-w", "workers/earthquake-ingestor"]
+
+  ingest-satellite-once:
+    profiles: ["ingest"]
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    container_name: qsight-ingest-satellite
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - ../.env
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/qsight?schema=public
+    command: ["npm", "run", "start", "-w", "workers/satellite-ingestor"]
+
+  ingest-aircraft-once:
+    profiles: ["ingest"]
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    container_name: qsight-ingest-aircraft
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - ../.env
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/qsight?schema=public
+    command: ["npm", "run", "start", "-w", "workers/opensky-ingestor"]
+
+volumes:
+  pgdata:
+    driver: local

@@ -1,0 +1,72 @@
+- `[x]` **Task 1: Fix Mock Scripts**
+  - Check if `cross-env` is in package.json.
+  - Update `package.json` mock scripts with full override flags.
+- `[x]` **Task 2: Fix Intervals**
+  - Update `.env.*` templates for aircraft, satellite, seismic intervals.
+  - Check `infra/docker-compose.prototype.yml` for intervals.
+- `[x]` **Task 3: Dockerfile Hygiene**
+  - Update Node to `22-alpine` in API and Web.
+  - Fix `AS builder` casing.
+  - Investigate and fix Cesium asset copy in Web Dockerfile.
+  - Remove `version: '3.8'` from `docker-compose.prototype.yml`.
+- `[x]` **Task 4: Dependency Audit**
+  - Run `npm audit --json` modes.
+  - Document in `DEPENDENCY_AUDIT_SUMMARY.md`.
+  - Apply `npm audit fix` if safe.
+- `[x]` **Task 5: Re-run Verification**
+  - Run all npm and node verification scripts.
+  - Run docker build, up, ps, down.
+  - Check API endpoints on port 4000.
+  - Check Web endpoint on port 5173.
+- `[x]` **Task 6: Update Audit Documentation**
+  - Update `FINDINGS_REGISTER.md`
+  - Update `RISK_REGISTER.md`
+  - Update `PILOT_GO_NO_GO_ASSESSMENT.md`
+  - Update `FORENSIC_AUDIT_REPORT.md`
+  - Update `COMMAND_EVIDENCE_LOG.md`
+- `[x]` **Task 7: Pilot Rehearsal & Freeze**
+  - Clean up FND-009 wording to prevent overclaiming.
+  - Create `PILOT_FREEZE_NOTE.md` with timestamps and parameters.
+  - Execute final freeze commands & log outputs in `PILOT_REHEARSAL_LOG.md`.
+- `[x]` **Task 8: Pre-Product-Suite UI Hardening Verification Evidence**
+  - Update `docs/pre-product-suite-hardening.md` with full verification record
+  - Create `docs/audit/PRE_PRODUCT_SUITE_HARDENING_EVIDENCE.md` with command executions and checklists
+  - Verify and update `walkthrough.md`, `task.md`, and `docs/audit/COMMAND_EVIDENCE_LOG.md`
+
+
+
+- `[x]` **Task 9: Enterprise UI/UX Overhaul Validation**
+  - Create `docs/audit/UI_UX_OVERHAUL_VALIDATION.md`
+  - Run validation suite and Docker validations
+  - Update documentation
+- `[x]` **Task 10: Product Suite Roadmap Review, Prioritization, Gap Closure, and First Build Sprint Selection**
+  - Run `git status --short` (verified codebase has no active git repo).
+  - Perform and document subagent/skill discovery.
+  - Review Product Suite Roadmap against Prompt 23 requirements and identify gaps.
+  - Create [ROADMAP_REVIEW_AND_GAP_ANALYSIS.md](file:///d:/Q-Sight%20Command%20Center/docs/product-suite-roadmap/ROADMAP_REVIEW_AND_GAP_ANALYSIS.md).
+  - Expand [EPIC_BACKLOG.md](file:///d:/Q-Sight%20Command%20Center/docs/product-suite-roadmap/EPIC_BACKLOG.md) to 66 detailed, build-ready epics.
+  - Update all existing roadmap files.
+  - Create new planning deliverables ([ROADMAP_DEPENDENCY_MAP.md](file:///d:/Q-Sight%20Command%20Center/docs/product-suite-roadmap/ROADMAP_DEPENDENCY_MAP.md), [PRIORITIZED_BACKLOG.md](file:///d:/Q-Sight%20Command%20Center/docs/product-suite-roadmap/PRIORITIZED_BACKLOG.md), [FIRST_BUILD_SPRINT_PLAN.md](file:///d:/Q-Sight%20Command%20Center/docs/product-suite-roadmap/FIRST_BUILD_SPRINT_PLAN.md), [PROMPT_25_FIRST_BUILD_SPRINT.md](file:///d:/Q-Sight%20Command%20Center/docs/product-suite-roadmap/PROMPT_25_FIRST_BUILD_SPRINT.md)).
+  - Run safe validation commands (`npm run build`, `npm run typecheck`, `npm run safety:verify`).
+  - Update [walkthrough.md](file:///d:/Q-Sight%20Command%20Center/walkthrough.md) and [task.md](file:///d:/Q-Sight%20Command%20Center/task.md).
+- `[x]` **Task 11: E2E Functional Test Rehearsal Before Phase 0 Stabilization**
+  - Run pre-test inspection and record current repository state.
+  - Spin up Docker prototype environment and check ports.
+  - Validate REST APIs against role-based simulation parameters.
+  - Verify WebSocket/realtime RBAC connectivity.
+  - Perform static safety scans and pattern checks.
+  - Create [E2E_FUNCTIONAL_TEST_REPORT.md](file:///d:/Q-Sight%20Command%20Center/docs/audit/E2E_FUNCTIONAL_TEST_REPORT.md) and [E2E_FUNCTIONAL_BUG_REGISTER.md](file:///d:/Q-Sight%20Command%20Center/docs/audit/E2E_FUNCTIONAL_BUG_REGISTER.md).
+  - Update command evidence log and walkthroughs.
+  - Gracefully tear down the DockerCompose staging container cluster.
+- `[x]` **Task 12: Phase 0 Baseline Stabilization Sprint**
+  - `[x]` repository onboarding guide
+  - `[x]` gitattributes
+  - `[x]` local CI verification script
+  - `[x]` npm verify:ci scripts
+  - `[x]` dependency audit
+  - `[x]` safe dependency handling
+  - `[x]` Docker version tagging script
+  - `[x]` environment template cleanup
+  - `[x]` release evidence file
+  - `[x]` Phase 0 report
+  - `[x]` full verification

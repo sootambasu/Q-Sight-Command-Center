@@ -1,0 +1,368 @@
+
+> q-sight-command-center@0.1.0 build
+> npm run build:shared && npm run build:api && npm run build:workers
+
+
+> q-sight-command-center@0.1.0 build:shared
+> npm run build -w packages/shared
+
+
+> @q-sight/shared@0.1.0 build
+> tsc
+
+
+> q-sight-command-center@0.1.0 build:api
+> npm run build -w apps/api
+
+
+> @q-sight/api@0.1.0 build
+> tsc
+
+
+> q-sight-command-center@0.1.0 build:workers
+> npm run build -w workers/opensky-ingestor && npm run build -w workers/satellite-ingestor && npm run build -w workers/earthquake-ingestor
+
+
+> @q-sight/opensky-ingestor@0.1.0 build
+> tsc
+
+
+> @q-sight/satellite-ingestor@0.1.0 build
+> tsc
+
+
+> @q-sight/earthquake-ingestor@0.1.0 build
+> tsc
+
+
+> q-sight-command-center@0.1.0 typecheck
+> npm run typecheck -w packages/shared && npm run typecheck -w apps/api && npm run typecheck -w workers/opensky-ingestor && npm run typecheck -w workers/satellite-ingestor && npm run typecheck -w workers/earthquake-ingestor
+
+
+> @q-sight/shared@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/api@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/opensky-ingestor@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/satellite-ingestor@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/earthquake-ingestor@0.1.0 typecheck
+> tsc --noEmit
+
+
+> q-sight-command-center@0.1.0 build:web
+> npm run build -w apps/web
+
+
+> @q-sight/web@0.1.0 build
+> tsc && vite build
+
+[36mvite v5.4.21 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 39 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                 [39m[1m[2m  0.68 kB[22m[1m[22m[2m │ gzip:  0.39 kB[22m
+[2mdist/[22m[35massets/index-Bwy9EhVx.css  [39m[1m[2m 43.79 kB[22m[1m[22m[2m │ gzip:  9.09 kB[22m
+[2mdist/[22m[36massets/index-BUGzLbAn.js   [39m[1m[2m208.41 kB[22m[1m[22m[2m │ gzip: 60.99 kB[22m
+[32m✓ built in 961ms[39m
+
+> q-sight-command-center@0.1.0 verify:static
+> npm run build && npm run typecheck && npm run worker:opensky:mock && npm run worker:satellite:mock && npm run worker:earthquake:mock && npm run verify:web
+
+
+> q-sight-command-center@0.1.0 build
+> npm run build:shared && npm run build:api && npm run build:workers
+
+
+> q-sight-command-center@0.1.0 build:shared
+> npm run build -w packages/shared
+
+
+> @q-sight/shared@0.1.0 build
+> tsc
+
+
+> q-sight-command-center@0.1.0 build:api
+> npm run build -w apps/api
+
+
+> @q-sight/api@0.1.0 build
+> tsc
+
+
+> q-sight-command-center@0.1.0 build:workers
+> npm run build -w workers/opensky-ingestor && npm run build -w workers/satellite-ingestor && npm run build -w workers/earthquake-ingestor
+
+
+> @q-sight/opensky-ingestor@0.1.0 build
+> tsc
+
+
+> @q-sight/satellite-ingestor@0.1.0 build
+> tsc
+
+
+> @q-sight/earthquake-ingestor@0.1.0 build
+> tsc
+
+
+> q-sight-command-center@0.1.0 typecheck
+> npm run typecheck -w packages/shared && npm run typecheck -w apps/api && npm run typecheck -w workers/opensky-ingestor && npm run typecheck -w workers/satellite-ingestor && npm run typecheck -w workers/earthquake-ingestor
+
+
+> @q-sight/shared@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/api@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/opensky-ingestor@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/satellite-ingestor@0.1.0 typecheck
+> tsc --noEmit
+
+
+> @q-sight/earthquake-ingestor@0.1.0 typecheck
+> tsc --noEmit
+
+
+> q-sight-command-center@0.1.0 worker:opensky:mock
+> npm run start:mock -w workers/opensky-ingestor
+
+
+> @q-sight/opensky-ingestor@0.1.0 start:mock
+> tsx src/index.ts
+
+{"event":"ingestion_run_started","type":"aircraft","mode":"live","timestamp":"2026-06-30T08:30:11.543Z"}
+{"event":"ingestion_records_skipped","type":"aircraft","count":5,"errors":["Record validation error: Invalid longitude coordinate","Record validation error: Invalid longitude coordinate","Record validation error: [\n  {\n    \"code\": \"too_small\",\n    \"minimum\": 1,\n    \"type\": \"string\",\n    \"inclusive\": true,\n    \"exact\": false,\n    \"message\": \"Origin country is required\",\n    \"path\": [\n      \"origin_country\"\n    ]\n  }\n]","Record validation error: Invalid longitude coordinate","Record validation error: Invalid longitude coordinate"],"timestamp":"2026-06-30T08:30:11.543Z"}
+{"event":"database_write_completed","type":"aircraft","count":495,"timestamp":"2026-06-30T08:30:11.543Z"}
+{"event":"ingestion_run_completed","type":"aircraft","source":"live","count":495,"timestamp":"2026-06-30T08:30:11.543Z"}
+
+> q-sight-command-center@0.1.0 worker:satellite:mock
+> npm run start:mock -w workers/satellite-ingestor
+
+
+> @q-sight/satellite-ingestor@0.1.0 start:mock
+> tsx src/index.ts
+
+{"event":"ingestion_run_started","type":"satellite","mode":"live","timestamp":"2026-06-30T08:30:17.083Z"}
+{"event":"ingestion_run_failed","type":"satellite","message":"Live ingestion failed: HTTP error! Status: 503. Falling back to mock data.","timestamp":"2026-06-30T08:30:17.083Z"}
+{"event":"database_write_completed","type":"satellite","count":3,"timestamp":"2026-06-30T08:30:17.083Z"}
+{"event":"ingestion_run_completed","type":"satellite","source":"mock","count":3,"timestamp":"2026-06-30T08:30:17.083Z"}
+
+> q-sight-command-center@0.1.0 worker:earthquake:mock
+> npm run start:mock -w workers/earthquake-ingestor
+
+
+> @q-sight/earthquake-ingestor@0.1.0 start:mock
+> tsx src/index.ts
+
+{"event":"ingestion_run_started","type":"seismic","mode":"live","timestamp":"2026-06-30T08:30:19.843Z"}
+{"event":"database_write_completed","type":"seismic","count":29,"timestamp":"2026-06-30T08:30:19.843Z"}
+{"event":"ingestion_run_completed","type":"seismic","source":"live","count":29,"timestamp":"2026-06-30T08:30:19.843Z"}
+
+> q-sight-command-center@0.1.0 verify:web
+> npm run typecheck:web && npm run build:web
+
+
+> q-sight-command-center@0.1.0 typecheck:web
+> npm run typecheck -w apps/web
+
+
+> @q-sight/web@0.1.0 typecheck
+> tsc --noEmit
+
+
+> q-sight-command-center@0.1.0 build:web
+> npm run build -w apps/web
+
+
+> @q-sight/web@0.1.0 build
+> tsc && vite build
+
+[36mvite v5.4.21 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 39 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                 [39m[1m[2m  0.68 kB[22m[1m[22m[2m │ gzip:  0.39 kB[22m
+[2mdist/[22m[35massets/index-Bwy9EhVx.css  [39m[1m[2m 43.79 kB[22m[1m[22m[2m │ gzip:  9.09 kB[22m
+[2mdist/[22m[36massets/index-BUGzLbAn.js   [39m[1m[2m208.41 kB[22m[1m[22m[2m │ gzip: 60.99 kB[22m
+[32m✓ built in 1.16s[39m
+
+=== Running Ingestion Verification Tests ===
+
+Running: Aircraft: Live disabled fallback to mock...
+{"event":"ingestion_run_started","type":"aircraft","mode":"mock","timestamp":"2026-06-30T08:30:28.841Z"}
+{"event":"database_write_skipped","type":"aircraft","reason":"No DB URL","timestamp":"2026-06-30T08:30:28.841Z"}
+{"event":"ingestion_run_completed","type":"aircraft","source":"mock","count":4,"timestamp":"2026-06-30T08:30:28.841Z"}
+PASS: Aircraft: Live disabled fallback to mock
+
+Running: Aircraft: Live enabled but source URL missing...
+{"event":"ingestion_run_started","type":"aircraft","mode":"live","timestamp":"2026-06-30T08:30:28.950Z"}
+{"event":"ingestion_warning","type":"aircraft","message":"AIRCRAFT_SOURCE_URL is missing. Falling back to mock data.","timestamp":"2026-06-30T08:30:28.950Z"}
+{"event":"database_write_skipped","type":"aircraft","reason":"No DB URL","timestamp":"2026-06-30T08:30:28.950Z"}
+{"event":"ingestion_run_completed","type":"aircraft","source":"mock","count":4,"timestamp":"2026-06-30T08:30:28.950Z"}
+PASS: Aircraft: Live enabled but source URL missing
+
+Running: Aircraft: Invalid URL timeout/failure handling...
+{"event":"ingestion_run_started","type":"aircraft","mode":"live","timestamp":"2026-06-30T08:30:29.055Z"}
+{"event":"ingestion_run_failed","type":"aircraft","message":"Live ingestion failed: Request timed out after 10000ms. Falling back to mock data.","timestamp":"2026-06-30T08:30:29.055Z"}
+{"event":"database_write_skipped","type":"aircraft","reason":"No DB URL","timestamp":"2026-06-30T08:30:29.055Z"}
+{"event":"ingestion_run_completed","type":"aircraft","source":"mock","count":4,"timestamp":"2026-06-30T08:30:29.055Z"}
+PASS: Aircraft: Invalid URL timeout/failure handling
+
+Running: Aircraft: Malformed records skipped and valid processed...
+{"event":"ingestion_run_started","type":"aircraft","mode":"live","timestamp":"2026-06-30T08:30:29.170Z"}
+{"event":"ingestion_records_skipped","type":"aircraft","count":2,"errors":["Record validation error: Invalid longitude coordinate","Record validation error: State array too short or invalid"],"timestamp":"2026-06-30T08:30:29.170Z"}
+{"event":"database_write_skipped","type":"aircraft","reason":"Write flag disabled","timestamp":"2026-06-30T08:30:29.170Z"}
+{"event":"ingestion_run_completed","type":"aircraft","source":"live","count":0,"timestamp":"2026-06-30T08:30:29.170Z"}
+PASS: Aircraft: Malformed records skipped and valid processed
+
+Running: Satellite: Valid TLE parsing and DB write...
+{"event":"ingestion_run_started","type":"satellite","mode":"live","timestamp":"2026-06-30T08:30:29.277Z"}
+{"event":"database_write_completed","type":"satellite","count":1,"timestamp":"2026-06-30T08:30:29.277Z"}
+{"event":"ingestion_run_completed","type":"satellite","source":"live","count":1,"timestamp":"2026-06-30T08:30:29.277Z"}
+PASS: Satellite: Valid TLE parsing and DB write
+
+Running: Satellite: Malformed TLE skipped...
+{"event":"ingestion_run_started","type":"satellite","mode":"live","timestamp":"2026-06-30T08:30:29.383Z"}
+{"event":"ingestion_records_skipped","type":"satellite","count":1,"errors":["TLE parse error for block starting with \"BAD SATELLITE\": NORAD ID mismatch: 99999 vs 00000"],"timestamp":"2026-06-30T08:30:29.383Z"}
+{"event":"database_write_skipped","type":"satellite","reason":"Write flag disabled","timestamp":"2026-06-30T08:30:29.383Z"}
+{"event":"ingestion_run_completed","type":"satellite","source":"live","count":0,"timestamp":"2026-06-30T08:30:29.383Z"}
+PASS: Satellite: Malformed TLE skipped
+
+Running: Seismic: Valid GeoJSON parsing and DB write...
+{"event":"ingestion_run_started","type":"seismic","mode":"live","timestamp":"2026-06-30T08:30:29.501Z"}
+{"event":"database_write_completed","type":"seismic","count":1,"timestamp":"2026-06-30T08:30:29.501Z"}
+{"event":"ingestion_run_completed","type":"seismic","source":"live","count":1,"timestamp":"2026-06-30T08:30:29.501Z"}
+PASS: Seismic: Valid GeoJSON parsing and DB write
+
+Running: Safety: Verify no camera/video/person fields are output in telemetry...
+{"event":"ingestion_run_started","type":"aircraft","mode":"live","timestamp":"2026-06-30T08:30:29.605Z"}
+{"event":"database_write_completed","type":"aircraft","count":1,"timestamp":"2026-06-30T08:30:29.605Z"}
+{"event":"ingestion_run_completed","type":"aircraft","source":"live","count":1,"timestamp":"2026-06-30T08:30:29.605Z"}
+PASS: Safety: Verify no camera/video/person fields are output in telemetry
+
+=== Ingestion Verification Results ===
+Passed: 8
+Failed: 0
+Total: 8
+
+🎉 All Ingestion Verification tests passed successfully!
+====================================================
+Q-Sight Live Open-Data Telemetry Verification
+====================================================
+LIVE_INGESTION_ENABLED: true
+SEISMIC_LIVE_ENABLED: true
+SATELLITE_LIVE_ENABLED: true
+AIRCRAFT_LIVE_ENABLED: true
+LIVE_INGESTOR_WRITE_TO_DB: true
+Timeout Limit: 10000ms
+
+--- VERIFYING SEISMIC SOURCE ---
+URL: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson
+Magnitude threshold: >= 2.5
+HTTP Status: 200 (Fetched successfully)
+Records fetched (analyzed): 29
+Records accepted: 29
+Records filtered/skipped: 0
+Sample accepted record: {
+  "usgs_id": "aka2026muxhjv",
+  "place": "12 km ESE of Eagle River, Alaska",
+  "magnitude": 2.9,
+  "depth_km": 15.2,
+  "event_time": 1782798019576,
+  "latitude": 61.274,
+  "longitude": -149.365
+}
+
+--- VERIFYING SATELLITE SOURCE ---
+URL: https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle
+[DEGRADED] Satellite fetch failed: HTTP error! Status: 503. Falling back to mock.
+
+--- VERIFYING AIRCRAFT SOURCE ---
+URL: https://opensky-network.org/api/states/all
+Auth credentials provided: YES
+HTTP Status: 200 (Fetched successfully)
+Records fetched (analyzed): 500
+Records accepted: 492
+Records skipped: 8
+Sample accepted record: {
+  "icao24": "e8027c",
+  "callsign": "LPE2376",
+  "origin_country": "Chile",
+  "altitude_meters": 10370.82,
+  "velocity_mps": 194.34,
+  "heading_degrees": 316.72,
+  "latitude": -28.9402,
+  "longitude": -62.9347,
+  "last_contact": 1782808228
+}
+
+====================================================
+✅ VERIFICATION COMPLETED (Third-party downtime/degradation is handled gracefully).
+
+=== Q-Sight V0.6 WebSocket Verification ===
+
+Test 1: Operator connection and subscription...
+  ✅ PASS: [operator] Connected — system.websocket.connected received
+  ✅ PASS: [operator] Role correctly set to 'operator' in connected payload
+  ✅ PASS: [operator] Subscription granted channels: [telemetry.aircraft,telemetry.satellite,telemetry.seismic,alerts.geofence]
+
+Test 2: Auditor RBAC channel denial...
+  ✅ PASS: [auditor] Connected — system.websocket.connected received
+  ✅ PASS: [auditor] Role correctly set to 'auditor' in connected payload
+  ✅ PASS: [auditor] Auditor has no allowed channels (correct RBAC enforcement)
+  ✅ PASS: [auditor] Subscription denied channels as expected: [telemetry.aircraft,alerts.geofence]
+  ℹ️  WS error received for [auditor]: Operational telemetry channels are not permitted for the auditor role.
+
+Test 3: Admin full access...
+  ✅ PASS: [admin] Connected — system.websocket.connected received
+  ✅ PASS: [admin] Role correctly set to 'admin' in connected payload
+  ✅ PASS: [admin] Subscription granted channels: [telemetry.aircraft,telemetry.satellite,telemetry.seismic,alerts.geofence]
+
+Test 4: REST API telemetry still functional...
+  ✅ PASS: [REST] /health endpoint returns ok status
+  ✅ PASS: [REST] /api/telemetry/aircraft returns 4 records
+  ✅ PASS: [REST] Auditor correctly blocked from /api/telemetry/aircraft (403)
+
+Test 5: Verify camera channels are absent from WS allowed channels...
+  ✅ PASS: [SAFETY] No camera channels in WebSocket allowed_channels (privacy guardrail)
+
+========================================
+RESULTS: 14 passed, 0 failed out of 14 tests
+
+🎉 All V0.6 WebSocket tests passed!
+(node:45188) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/Q-Sight%20Command%20Center/scripts/verify_safety_guardrails.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to D:\Q-Sight Command Center\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+🛡️ Starting Safety Guardrails Verification Scanner...
+   Scanning directory: apps/web/src
+   Scanning directory: apps/api/src
+   Scanning directory: workers
+   Scanning directory: packages
+   Scanning directory: infra
+   Scanning directory: scripts
+   Scanning config file: .env.example
+   Scanning config file: .env.demo.example
+   Scanning config file: .env.live.example
+   Scanning config file: .env.staging.example
+
+==================================================
+✅ Safety Verification PASSED. No forbidden patterns detected in code/configs.

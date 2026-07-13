@@ -1,0 +1,68 @@
+{
+  "name": "q-sight-command-center",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Industrial Spatial Intelligence Command Center for authorized assets, logistics, emergency response, infrastructure monitoring, environmental risk, and safety operations.",
+  "workspaces": [
+    "apps/*",
+    "workers/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "lint": "echo 'No lint configuration yet'",
+    "format": "echo 'No format configuration yet'",
+    "build:shared": "npm run build -w packages/shared",
+    "build:api": "npm run build -w apps/api",
+    "build:workers": "npm run build -w workers/opensky-ingestor && npm run build -w workers/satellite-ingestor && npm run build -w workers/earthquake-ingestor",
+    "build": "npm run build:shared && npm run build:api && npm run build:workers",
+    "typecheck": "npm run typecheck -w packages/shared && npm run typecheck -w apps/api && npm run typecheck -w workers/opensky-ingestor && npm run typecheck -w workers/satellite-ingestor && npm run typecheck -w workers/earthquake-ingestor",
+    "dev:api": "npm run dev -w apps/api",
+    "dev:web": "npm run dev -w apps/web",
+    "build:web": "npm run build -w apps/web",
+    "typecheck:web": "npm run typecheck -w apps/web",
+    "verify:web": "npm run typecheck:web && npm run build:web",
+    "db:up": "docker-compose -f infra/docker-compose.yml up -d",
+    "db:down": "docker-compose -f infra/docker-compose.yml down",
+    "worker:opensky:mock": "cross-env LIVE_INGESTION_ENABLED=false AIRCRAFT_LIVE_ENABLED=false SATELLITE_LIVE_ENABLED=false SEISMIC_LIVE_ENABLED=false LIVE_INGESTOR_WRITE_TO_DB=false MOCK_INGESTOR_WRITE_TO_DB=false npm run start:mock -w workers/opensky-ingestor",
+    "worker:satellite:mock": "cross-env LIVE_INGESTION_ENABLED=false AIRCRAFT_LIVE_ENABLED=false SATELLITE_LIVE_ENABLED=false SEISMIC_LIVE_ENABLED=false LIVE_INGESTOR_WRITE_TO_DB=false MOCK_INGESTOR_WRITE_TO_DB=false npm run start:mock -w workers/satellite-ingestor",
+    "worker:earthquake:mock": "cross-env LIVE_INGESTION_ENABLED=false AIRCRAFT_LIVE_ENABLED=false SATELLITE_LIVE_ENABLED=false SEISMIC_LIVE_ENABLED=false LIVE_INGESTOR_WRITE_TO_DB=false MOCK_INGESTOR_WRITE_TO_DB=false npm run start:mock -w workers/earthquake-ingestor",
+    "ingest:seismic:once": "npm run start:mock -w workers/earthquake-ingestor",
+    "ingest:satellite:once": "npm run start:mock -w workers/satellite-ingestor",
+    "ingest:aircraft:once": "npm run start:mock -w workers/opensky-ingestor",
+    "ingest:live:once": "npm run ingest:seismic:once && npm run ingest:satellite:once && npm run ingest:aircraft:once",
+    "ingest:scheduled": "node scripts/scheduled_ingestion.js",
+    "prototype:verify": "npm run build && npm run typecheck && npm run build:web && npm run verify:static && node scripts/verify_ingestion.js && node scripts/ws_verify.js",
+    "prototype:live-check": "node scripts/verify_live_sources.js",
+    "pilot:verify": "npm run build && npm run typecheck && npm run build:web && npm run verify:static && node scripts/verify_ingestion.js && node scripts/ws_verify.js",
+    "pilot:live-check": "node scripts/verify_live_sources.js",
+    "pilot:docker:config": "docker compose -f infra/docker-compose.prototype.yml config",
+    "pilot:docker:build": "docker compose -f infra/docker-compose.prototype.yml build",
+    "safety:verify": "node scripts/verify_safety_guardrails.js",
+    "verify:static": "npm run build && npm run typecheck && npm run worker:opensky:mock && npm run worker:satellite:mock && npm run worker:earthquake:mock && npm run verify:web",
+    "verify:full": "npm run db:up && npm run build && npm run typecheck && cross-env MOCK_INGESTOR_WRITE_TO_DB=true npm run worker:opensky:mock && cross-env MOCK_INGESTOR_WRITE_TO_DB=true npm run worker:satellite:mock && cross-env MOCK_INGESTOR_WRITE_TO_DB=true npm run worker:earthquake:mock && npm run verify:web",
+    "verify:ci": "powershell -ExecutionPolicy Bypass -File scripts/ci_verify.ps1",
+    "verify:ci:docker": "powershell -ExecutionPolicy Bypass -File scripts/ci_verify.ps1 -IncludeDocker",
+    "verify": "npm run verify:static"
+  },
+  "overrides": {
+    "esbuild": "^0.25.0",
+    "vite": {
+      "esbuild": "^0.25.0"
+    },
+    "@q-sight/web": {
+      "vite": {
+        "esbuild": "^0.25.0"
+      }
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/pg": "^8.11.0",
+    "cross-env": "^7.0.3",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}

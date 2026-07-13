@@ -1,0 +1,2 @@
+-- Initial schema reference (initialized via 001_init.sql)
+-- No actions needed, schema is set up by initial SQL.

@@ -1,0 +1,1234 @@
+/* ==============================================================================
+   Q-Sight Command Center Layout Styles (High-Contrast Industrial Theme)
+   ============================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-darker: #08090c;
+  --bg-dark: #0f1115;
+  --bg-panel: #161a22;
+  --bg-active: #222936;
+  --bg-surface: #13161d;
+  --bg-hover: #1e2330;
+  --bg-selected: #1a2332;
+  
+  --border-muted: #1c2027;
+  --border-bright: #2d3646;
+  --border-focus: #3b82f6;
+  
+  --text-bright: #f1f5f9;
+  --text-normal: #cbd5e1;
+  --text-label: #94a3b8;
+  --text-muted: #64748b;
+  --text-disabled: #475569;
+
+  --color-asset: #06b6d4;      /* Cyan */
+  --color-aircraft: #10b981;   /* Emerald */
+  --color-satellite: #a855f7;  /* Purple */
+  --color-seismic: #f97316;    /* Orange */
+  --color-camera: #eab308;     /* Amber */
+  --color-danger: #ef4444;     /* Red */
+  --color-safe: #22c55e;       /* Green */
+  --color-warning: #f59e0b;    /* Amber 500 */
+
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-darker);
+  color: var(--text-normal);
+  font-family: var(--font-sans);
+  font-size: 14px;
+}
+
+/* Base Command Center Layout Grid */
+.cc-container {
+  display: grid;
+  grid-template-rows: auto 40px 1fr auto 24px;
+  grid-template-columns: 48px 1fr 320px;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-darker);
+}
+
+@media (max-width: 1440px) {
+  .cc-container {
+    grid-template-columns: 48px 1fr 280px;
+  }
+}
+
+/* Status Header Bar */
+.cc-header {
+  grid-row: 1;
+  grid-column: 1 / span 3;
+  background-color: var(--bg-dark);
+  border-bottom: 1px solid var(--border-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 10;
+}
+
+.cc-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cc-logo-symbol {
+  font-weight: 700;
+  color: var(--color-asset);
+  letter-spacing: 2px;
+  font-family: var(--font-mono);
+  background-color: rgba(6, 182, 212, 0.1);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.cc-logo-text {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--text-bright);
+}
+
+.cc-logo-text span {
+  font-weight: 300;
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-left: 8px;
+  font-family: var(--font-mono);
+}
+
+.cc-status-cluster {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-muted);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--text-disabled);
+}
+
+.status-indicator.online {
+  background-color: var(--color-safe);
+  box-shadow: 0 0 8px var(--color-safe);
+}
+
+.status-indicator.offline {
+  background-color: var(--color-danger);
+  box-shadow: 0 0 8px var(--color-danger);
+}
+
+.status-indicator.pending {
+  background-color: var(--color-camera);
+  box-shadow: 0 0 8px var(--color-camera);
+}
+
+/* Left Sidebar (Layer controls and safety rules) */
+.cc-sidebar {
+  grid-row: 2;
+  grid-column: 1;
+  background-color: var(--bg-dark);
+  border-right: 1px solid var(--border-muted);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+  z-index: 5;
+}
+
+.sidebar-section {
+  margin-bottom: 24px;
+}
+
+.sidebar-title {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border-muted);
+  padding-bottom: 6px;
+}
+
+/* Layer Control Toggle Toggles */
+.layer-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.layer-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-muted);
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.layer-toggle:hover {
+  background-color: var(--bg-active);
+  border-color: var(--border-bright);
+}
+
+.layer-toggle.active {
+  border-left-width: 4px;
+}
+
+.layer-toggle.assets.active { border-left-color: var(--color-asset); }
+.layer-toggle.aircraft.active { border-left-color: var(--color-aircraft); }
+.layer-toggle.satellites.active { border-left-color: var(--color-satellite); }
+.layer-toggle.seismic.active { border-left-color: var(--color-seismic); }
+.layer-toggle.cameras.active { border-left-color: var(--color-camera); }
+
+.layer-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.layer-icon-bullet {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.layer-toggle.assets .layer-icon-bullet { background-color: var(--color-asset); }
+.layer-toggle.aircraft .layer-icon-bullet { background-color: var(--color-aircraft); }
+.layer-toggle.satellites .layer-icon-bullet { background-color: var(--color-satellite); }
+.layer-toggle.seismic .layer-icon-bullet { background-color: var(--color-seismic); }
+.layer-toggle.cameras .layer-icon-bullet { background-color: var(--color-camera); }
+
+.layer-label {
+  font-weight: 500;
+  color: var(--text-bright);
+}
+
+.layer-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  background-color: var(--bg-darker);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Toggle Switch Styling */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 18px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--border-bright);
+  transition: .2s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--text-bright);
+  transition: .2s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--color-safe);
+}
+
+input:checked + .slider:before {
+  transform: translateX(14px);
+}
+
+/* Safety Dashboard Overlays */
+.safety-shield-box {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(239, 68, 68, 0.02) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.safety-shield-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--color-danger);
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.safety-list {
+  list-style: none;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.safety-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  color: var(--text-muted);
+}
+
+.safety-list li::before {
+  content: "▪";
+  color: var(--color-danger);
+}
+
+/* Center Map Area */
+.cc-map-container {
+  grid-row: 2;
+  grid-column: 2;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-darker);
+}
+
+.cesium-viewer-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Map overlay notification states (like loading keys or offline) */
+.map-notification-overlay {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(22, 26, 34, 0.9);
+  border: 1px solid var(--border-bright);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  z-index: 4;
+  color: var(--color-camera);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+/* Right Details Panel */
+.cc-details-panel {
+  grid-row: 2;
+  grid-column: 3;
+  background-color: var(--bg-dark);
+  border-left: 1px solid var(--border-muted);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 5;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-bright);
+}
+
+.panel-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.panel-subtitle {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.empty-panel-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+  color: var(--text-muted);
+  gap: 12px;
+}
+
+.empty-panel-state svg {
+  stroke: var(--text-disabled);
+}
+
+.detail-group {
+  margin-bottom: 20px;
+}
+
+.detail-label {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.detail-value {
+  color: var(--text-bright);
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.detail-value.mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-muted);
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+/* Camera Protected Layout */
+.camera-shield-state {
+  background-color: rgba(234, 179, 8, 0.05);
+  border: 1px dashed var(--color-camera);
+  border-radius: 6px;
+  padding: 16px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.camera-shield-title {
+  color: var(--color-camera);
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+
+.camera-shield-text {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Bottom Strip (Expanded Operational Console) */
+.cc-footer {
+  grid-row: 3;
+  grid-column: 1 / span 3;
+  background-color: var(--bg-dark);
+  border-top: 1px solid var(--border-muted);
+  display: grid;
+  grid-template-columns: 300px 1fr 320px;
+  gap: 16px;
+  padding: 10px 20px;
+  z-index: 10;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.footer-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.footer-panel-title {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border-muted);
+  padding-bottom: 4px;
+}
+
+/* Polling Panel */
+.polling-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.polling-btn {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-bright);
+  color: var(--text-bright);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.15s;
+}
+
+.polling-btn:hover {
+  background-color: var(--bg-active);
+}
+
+.polling-btn.active {
+  border-color: var(--color-aircraft);
+  color: var(--color-aircraft);
+}
+
+.polling-countdown-bar {
+  height: 3px;
+  background-color: var(--border-muted);
+  width: 100%;
+  border-radius: 1.5px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.polling-countdown-progress {
+  height: 100%;
+  background-color: var(--color-asset);
+  transition: width 1s linear;
+}
+
+.polling-status-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Horizontal Timeline Event Feed */
+.timeline-scroll-container {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 4px;
+  height: 100px;
+  align-items: stretch;
+}
+
+.timeline-event-card {
+  width: 250px;
+  flex-shrink: 0;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-muted);
+  border-radius: 6px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.timeline-event-card:hover {
+  border-color: var(--border-bright);
+}
+
+.timeline-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.timeline-card-category {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--bg-darker);
+}
+
+.timeline-card-category.asset { background-color: var(--color-asset); color: var(--bg-darker); }
+.timeline-card-category.aircraft { background-color: var(--color-aircraft); color: var(--bg-darker); }
+.timeline-card-category.satellite { background-color: var(--color-satellite); color: var(--bg-darker); }
+.timeline-card-category.seismic { background-color: var(--color-seismic); color: var(--bg-darker); }
+.timeline-card-category.camera { background-color: var(--color-camera); color: var(--bg-darker); }
+
+.timeline-card-time {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.timeline-card-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-bright);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.timeline-card-desc {
+  font-size: 10px;
+  color: var(--text-normal);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.timeline-card-source {
+  font-size: 8px;
+  font-family: var(--font-mono);
+  align-self: flex-end;
+  margin-top: auto;
+  color: var(--text-disabled);
+}
+
+/* System Status Cluster Footer Panel */
+.status-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.status-grid-item {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-muted);
+  border-radius: 4px;
+  padding: 5px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.status-grid-label {
+  color: var(--text-muted);
+}
+
+.status-grid-value {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-grid-value.database { color: var(--color-asset); }
+.status-grid-value.mock { color: var(--color-camera); }
+.status-grid-value.offline { color: var(--color-danger); }
+
+/* Layer Control UI tweaks */
+.layer-controls-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.layer-action-btn {
+  flex: 1;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-muted);
+  color: var(--text-normal);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.15s;
+}
+
+.layer-action-btn:hover {
+  background-color: var(--bg-active);
+  border-color: var(--border-bright);
+}
+
+.layer-toggle.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.layer-source-indicator {
+  font-size: 9px;
+  font-family: var(--font-mono);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.layer-source-indicator.database {
+  color: var(--color-asset);
+  background-color: rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.layer-source-indicator.mock {
+  color: var(--color-camera);
+  background-color: rgba(234, 179, 8, 0.15);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.layer-source-indicator.offline {
+  color: var(--color-danger);
+  background-color: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.layer-source-indicator.live {
+  color: var(--color-safe);
+  background-color: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.layer-source-indicator.live_disabled {
+  color: var(--text-muted);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.layer-source-indicator.live_fallback {
+  color: var(--color-warning);
+  background-color: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-darker);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-bright);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-disabled);
+}
+
+/* ==============================================================================
+   Compliance Audit Logs Viewer UI
+   ============================================================================== */
+
+.audit-viewer-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-darker);
+  display: flex;
+  flex-direction: column;
+  z-index: 8;
+  overflow: hidden;
+}
+
+.audit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: var(--bg-dark);
+  border-bottom: 1px solid var(--border-muted);
+}
+
+.audit-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-bright);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.audit-title span {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--color-camera);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  padding: 2px 6px;
+  border-radius: 3px;
+  background-color: rgba(234, 179, 8, 0.1);
+}
+
+.audit-refresh-btn {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-bright);
+  color: var(--text-bright);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.15s;
+}
+
+.audit-refresh-btn:hover {
+  background-color: var(--bg-active);
+}
+
+.audit-summary-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  padding: 15px 20px;
+  background-color: var(--bg-dark);
+  border-bottom: 1px solid var(--border-muted);
+}
+
+.audit-summary-card {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-muted);
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+
+.audit-summary-label {
+  font-size: 9px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.audit-summary-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-bright);
+  font-family: var(--font-mono);
+}
+
+.audit-table-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px 20px;
+}
+
+.audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+
+.audit-th {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--border-bright);
+  letter-spacing: 0.5px;
+}
+
+.audit-td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-muted);
+  color: var(--text-normal);
+  vertical-align: middle;
+}
+
+.audit-tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.audit-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.audit-badge.access_denied {
+  color: var(--color-danger);
+  background-color: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.audit-badge.sensitive_boundary_accessed {
+  color: var(--color-camera);
+  background-color: rgba(234, 179, 8, 0.15);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.audit-badge.camera_metadata_view_authorized {
+  color: var(--color-asset);
+  background-color: rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.audit-badge.camera_metadata_view_redacted {
+  color: var(--text-muted);
+  background-color: rgba(100, 116, 139, 0.15);
+  border: 1px solid rgba(100, 116, 139, 0.3);
+}
+
+.audit-badge.audit_logs_viewed,
+.audit-badge.audit_summary_viewed {
+  color: var(--color-aircraft);
+  background-color: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.audit-badge.generic {
+  color: var(--text-normal);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ==============================================================================
+   V0.6 WebSocket Real-Time UI Styles
+   ============================================================================== */
+
+/* WebSocket status indicator in header */
+.ws-status-badge {
+  min-width: 70px;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.ws-status-badge.ws-connected {
+  border-color: var(--color-safe) !important;
+  color: var(--color-safe);
+}
+
+.ws-status-badge.ws-connecting {
+  border-color: var(--color-camera) !important;
+  color: var(--color-camera);
+}
+
+.ws-status-badge.ws-disconnected {
+  border-color: var(--border-muted) !important;
+  color: var(--text-muted);
+}
+
+.ws-status-badge.ws-error {
+  border-color: var(--color-danger) !important;
+  color: var(--color-danger);
+}
+
+/* Pulse animation for active alerts badge */
+@keyframes pulse-badge {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Real-time event cards in timeline */
+.rt-event-card {
+  border-left: 2px solid var(--color-safe);
+  background: rgba(34, 197, 94, 0.04);
+}
+
+.rt-alert-card {
+  border-left: 2px solid var(--color-seismic) !important;
+  background: rgba(249, 115, 22, 0.06) !important;
+}
+
+.rt-system-card {
+  border-left: 2px solid var(--border-bright) !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  opacity: 0.75;
+}
+
+/* ==============================================================================
+   Geofence Alerts Overlay Panel
+   ============================================================================== */
+
+.alerts-panel-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 340px;
+  max-height: 480px;
+  background: var(--bg-panel);
+  border: 1px solid var(--color-seismic);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(249, 115, 22, 0.2);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.alerts-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: rgba(249, 115, 22, 0.12);
+  border-bottom: 1px solid rgba(249, 115, 22, 0.3);
+  color: var(--color-seismic);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+.alerts-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Alert cards */
+.alert-card {
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border-muted);
+  background: var(--bg-active);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.alert-card.severity-warning {
+  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.alert-card.severity-watch {
+  border-color: rgba(249, 115, 22, 0.4);
+  background: rgba(249, 115, 22, 0.06);
+}
+
+.alert-card.severity-info {
+  border-color: rgba(6, 182, 212, 0.3);
+  background: rgba(6, 182, 212, 0.04);
+}
+
+.alert-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+
+.alert-severity-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.alert-severity-badge.warning {
+  color: var(--color-danger);
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.alert-severity-badge.watch {
+  color: var(--color-seismic);
+  background: rgba(249, 115, 22, 0.15);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.alert-severity-badge.info {
+  color: var(--color-asset);
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.alert-source-type {
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.alert-time {
+  font-size: 9px;
+  color: var(--text-disabled);
+  margin-left: auto;
+}
+
+.alert-message {
+  color: var(--text-bright);
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.alert-meta {
+  color: var(--text-muted);
+  font-size: 9px;
+}
+
+/* WS audit badge in audit viewer */
+.audit-badge.ws_connection_opened,
+.audit-badge.ws_connection_closed {
+  color: var(--color-aircraft);
+  background-color: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.audit-badge.ws_subscription_accepted {
+  color: var(--color-safe);
+  background-color: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.audit-badge.ws_subscription_denied {
+  color: var(--color-danger);
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.audit-badge.geofence_alert_emitted {
+  color: var(--color-seismic);
+  background-color: rgba(249, 115, 22, 0.1);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+/* Demo Control Panel & Compliance Footer styles */
+.demo-control-panel-box {
+  border: 1px solid var(--color-seismic) !important;
+  border-radius: 6px;
+  padding: 12px;
+  background-color: rgba(249, 115, 22, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: border-pulse 3s infinite ease-in-out;
+}
+
+@keyframes border-pulse {
+  0%, 100% { border-color: rgba(249, 115, 22, 0.4); }
+  50% { border-color: rgba(249, 115, 22, 1); }
+}
+
+.demo-mode-indicator {
+  animation: pulse-bg-warning 3s infinite ease-in-out;
+}
+
+@keyframes pulse-bg-warning {
+  0%, 100% { background-color: rgba(249, 115, 22, 0.1); }
+  50% { background-color: rgba(249, 115, 22, 0.25); }
+}
+
+.cc-compliance-footer span {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ==============================================================================
+   UI Hardening sprint additions
+   ============================================================================== */
+
+.global-mode-banner {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  z-index: 1001;
+}
+
+/* Executive Mode Layout overrides */
+.cc-container.executive-mode {
+  grid-template-columns: 0px 1fr 0px;
+}
+
+.cc-container.executive-mode .cc-sidebar,
+.cc-container.executive-mode .cc-details-panel {
+  display: none !important;
+}
+
+.source-health-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-muted);
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.alert-card.new {
+  border-left: 3px solid var(--color-danger);
+}
+
+.alert-card.viewed {
+  border-left: 3px solid var(--text-disabled);
+  opacity: 0.6;
+}
+
+.pilot-checklist-drawer {
+  transition: all 0.3s ease;
+}
+
+
+
