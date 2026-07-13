@@ -7,7 +7,10 @@ import {
   SatelliteOrbitPoint,
   IngestionResult
 } from '@q-sight/shared';
-import { mockSatellites } from './mock-data';
+let mockSatellites : any[] = [];
+if (process.env.BUILD_PROFILE !== 'production') {
+  mockSatellites = require('./mock-data').mockSatellites;
+}
 
 // Load environment variables from possible parent directories
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
@@ -41,11 +44,17 @@ async function run() {
 
   if (isLive) {
     if (!sourceUrl) {
-      const errMsg = 'SATELLITE_TLE_SOURCE_URL is missing. Falling back to mock data.';
+      const errMsg = 'SATELLITE_TLE_SOURCE_URL is missing.';
       result.errors.push(errMsg);
-      console.warn(JSON.stringify({ event: 'ingestion_warning', type: 'satellite', message: errMsg, timestamp }));
-      result.records = mockSatellites;
-      result.source = 'mock';
+      if (process.env.BUILD_PROFILE === 'production') {
+        console.warn(JSON.stringify({ event: 'ingestion_warning', type: 'satellite', message: errMsg + ' Mock fallback BLOCKED in production.', timestamp }));
+        result.records = [];
+        result.source = 'live';
+      } else {
+        console.warn(JSON.stringify({ event: 'ingestion_warning', type: 'satellite', message: errMsg + ' Falling back to mock data.', timestamp }));
+        result.records = mockSatellites;
+        result.source = 'mock';
+      }
     } else {
       try {
         const dataStr = await fetchWithTimeout(sourceUrl, { headers: { 'Accept': 'text/plain' } }, timeoutMs);
@@ -118,11 +127,17 @@ async function run() {
         }
 
       } catch (err: any) {
-        const errMsg = `Live ingestion failed: ${err.message || err}. Falling back to mock data.`;
+        const errMsg = `Live ingestion failed: ${err.message || err}.`;
         result.errors.push(errMsg);
-        console.error(JSON.stringify({ event: 'ingestion_run_failed', type: 'satellite', message: errMsg, timestamp }));
-        result.records = mockSatellites;
-        result.source = 'mock';
+        if (process.env.BUILD_PROFILE === 'production') {
+          console.error(JSON.stringify({ event: 'ingestion_run_failed', type: 'satellite', message: errMsg + ' Mock fallback BLOCKED in production.', timestamp }));
+          result.records = [];
+          result.source = 'live';
+        } else {
+          console.error(JSON.stringify({ event: 'ingestion_run_failed', type: 'satellite', message: errMsg + ' Falling back to mock data.', timestamp }));
+          result.records = mockSatellites;
+          result.source = 'mock';
+        }
       }
     }
   } else {
@@ -195,3 +210,4 @@ run().catch((err) => {
   console.error(JSON.stringify({ event: 'ingestion_fatal_failure', type: 'satellite', message: err.message || err, timestamp: new Date().toISOString() }));
   process.exit(1);
 });
+

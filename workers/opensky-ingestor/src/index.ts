@@ -7,7 +7,10 @@ import {
   AircraftPosition,
   IngestionResult
 } from '@q-sight/shared';
-import { mockAircrafts } from './mock-data';
+let mockAircrafts : any[] = [];
+if (process.env.BUILD_PROFILE !== 'production') {
+  mockAircrafts = require('./mock-data').mockAircrafts;
+}
 
 // Load environment variables from possible parent directories
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
@@ -44,11 +47,17 @@ async function run() {
 
   if (isLive) {
     if (!sourceUrl) {
-      const errMsg = 'AIRCRAFT_SOURCE_URL is missing. Falling back to mock data.';
+      const errMsg = 'AIRCRAFT_SOURCE_URL is missing.';
       result.errors.push(errMsg);
-      console.warn(JSON.stringify({ event: 'ingestion_warning', type: 'aircraft', message: errMsg, timestamp }));
-      result.records = mockAircrafts;
-      result.source = 'mock';
+      if (process.env.BUILD_PROFILE === 'production') {
+        console.warn(JSON.stringify({ event: 'ingestion_warning', type: 'aircraft', message: errMsg + ' Mock fallback BLOCKED in production.', timestamp }));
+        result.records = [];
+        result.source = 'live';
+      } else {
+        console.warn(JSON.stringify({ event: 'ingestion_warning', type: 'aircraft', message: errMsg + ' Falling back to mock data.', timestamp }));
+        result.records = mockAircrafts;
+        result.source = 'mock';
+      }
     } else {
       try {
         const headers: Record<string, string> = {
@@ -109,6 +118,11 @@ async function run() {
               latitude,
               longitude,
               last_contact: lastContact,
+              source: result.source,
+              freshness: Date.now() - (lastContact * 1000),
+              age: Date.now() - (lastContact * 1000),
+              quality: result.source === 'live' ? 'high' : 'mock',
+              staleness: false
             };
 
             const validated = AircraftPositionSchema.parse(plane);
@@ -130,11 +144,17 @@ async function run() {
         }
 
       } catch (err: any) {
-        const errMsg = `Live ingestion failed: ${err.message || err}. Falling back to mock data.`;
+        const errMsg = `Live ingestion failed: ${err.message || err}.`;
         result.errors.push(errMsg);
-        console.error(JSON.stringify({ event: 'ingestion_run_failed', type: 'aircraft', message: errMsg, timestamp }));
-        result.records = mockAircrafts;
-        result.source = 'mock';
+        if (process.env.BUILD_PROFILE === 'production') {
+          console.error(JSON.stringify({ event: 'ingestion_run_failed', type: 'aircraft', message: errMsg + ' Mock fallback BLOCKED in production.', timestamp }));
+          result.records = [];
+          result.source = 'live';
+        } else {
+          console.error(JSON.stringify({ event: 'ingestion_run_failed', type: 'aircraft', message: errMsg + ' Falling back to mock data.', timestamp }));
+          result.records = mockAircrafts;
+          result.source = 'mock';
+        }
       }
     }
   } else {
@@ -222,3 +242,4 @@ run().catch((err) => {
   console.error(JSON.stringify({ event: 'ingestion_fatal_failure', type: 'aircraft', message: err.message || err, timestamp: new Date().toISOString() }));
   process.exit(1);
 });
+
