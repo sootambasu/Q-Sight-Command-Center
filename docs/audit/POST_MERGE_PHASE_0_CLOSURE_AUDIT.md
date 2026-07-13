@@ -1,7 +1,7 @@
 # Post-Merge Phase 0 Closure Audit
 
 ## 1. Closure Audit Verdict
-Against the merged `develop` branch (SHA `9ce53c1`), the Phase 0 closure status is updated.
+Against the merged `develop` branch (SHA: `4e31ee5ac031db1459364ec893d77e58889904f7`, tagged as `v0.1.0-phase0-accepted`), the Phase 0 closure status is updated.
 
 **Verdict: PHASE 0 COMPLETE**
 
@@ -11,7 +11,7 @@ All build, typecheck, testing, runtime server, WebSocket authentication, Docker 
 
 ## 2. Evidence Trace
 
-| Defect / Control | Prior RC Commit `9b0de39` Status | Merged Develop Commit `9ce53c1` Status | Evidence Log |
+| Defect / Control | Prior RC Commit `9b0de39` Status | Merged Develop Commit `4e31ee5` Status | Evidence Log |
 | :--- | :--- | :--- | :--- |
 | **1. Frontend Build** | **FAILED** | **PASS** | `apps/web` typechecks and compiles with Vite without error. |
 | **2. Jest Tests** | **FAILED** | **PASS** | Root `test` script runs Jest and passes 3/3 unit tests. |

@@ -10,7 +10,7 @@
 ---
 
 ## 2. Acceptance Metrics
-* **Accepted Commit SHA:** `2d2374ed217d8481ffdd4c7edee02e1b12cb3bc5`
+* **Accepted Commit:** `v0.1.0-phase0-accepted` (SHA: `4e31ee5ac031db1459364ec893d77e58889904f7`)
 * **Clean-Clone Verification Location:** `D:\QSightClosureCleanVerification`
 
 ---

@@ -1,7 +1,7 @@
 # Post-Merge A9 Red-Team Report
 
 ## 1. Security Assessment Summary
-The Red-Team has reviewed the security mitigations on the merged `develop` branch (SHA `9ce53c1`).
+The Red-Team has reviewed the security mitigations on the merged `develop` branch (SHA: `4e31ee5ac031db1459364ec893d77e58889904f7`, tagged as `v0.1.0-phase0-accepted`).
 
 **Security Status: PASS**
 
