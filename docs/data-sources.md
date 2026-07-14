@@ -39,14 +39,14 @@ This document describes the external data sources and APIs integrated into the *
 *   **Purpose**: Feeds live seismic event warnings to protect physical industrial infrastructures.
 *   **Integration**: Handled by `workers/earthquake-ingestor` polling the USGS GeoJSON Summary Feeds.
 *   **v0.7 Update**: Ingests live data if `LIVE_INGESTION_ENABLED=true` and `SEISMIC_LIVE_ENABLED=true`. Fallback to mock data if disabled or unavailable. Configured via `SEISMIC_SOURCE_URL` and filtered by `SEISMIC_MIN_MAGNITUDE`.
-*   **⚠️ Important Caveat**: This is an open-data geological feed, not a tactical early warning warning network. Feeds are subject to standard network latency (typically 1–5 minutes from event detection to API update).
+*   **⚠️ Important Caveat**: This is an open-data geological feed, not a tactical early warning network. Open-data feeds are advisory and may be delayed, rate-limited, incomplete, or unavailable.
 
 ---
 
-## 6. Authorized Camera Registry
-*   **Purpose**: Displays live operations video streams (CCTV, IP cameras) located at physical facility boundaries.
-*   **Integration**: Feeds are registered through `/api/cameras` on the Fastify API.
-*   **⚠️ Critical Safety Caveat**: All cameras must be privately owned, legally registered, and explicitly authorized by the asset owners. Connecting to unauthenticated public camera feeds or crawling indices (such as Shodan/Insecam) is strictly prohibited. The registry enforces cryptographic verification of stream ownership and fails to load unauthenticated sources. Camera streams are not fetched or processed by any background ingestion worker in this phase.
+## 6. Authorized Sensor Metadata Registry
+*   **Purpose**: Manages authorized sensor metadata registry located at physical facility boundaries.
+*   **Integration**: Feeds are registered through `/api/sensors` on the Fastify API.
+*   **⚠️ Critical Safety Caveat**: No public CCTV scraping, stream discovery, video playback, RTSP, HLS, WebRTC, facial recognition, biometrics, or person tracking are supported.
 
 ---
 

@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Sprint Report — Phase 0 Baseline Stabilization
 
 This document summarizes the outcomes of the Phase 0 Baseline Stabilization Sprint. It marks the formal establishment of the staging baseline release v1.1.
@@ -94,3 +96,4 @@ To restore the repository state to v1.0:
 
 ## 8. Final Status Verdict
 **Phase 0 Stabilization Complete — Staging Baseline v1.1 Frozen.**
+

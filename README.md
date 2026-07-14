@@ -7,8 +7,8 @@
 
 > [!IMPORTANT]
 > **Prototype Status** — This is a pre-production prototype (v0.1.0). It is NOT enterprise-ready or
-> pilot-ready as of 2026-07-13. See [docs/CAPABILITY_STATUS.md](file:///d:/Q-Sight%20Command%20Center/docs/CAPABILITY_STATUS.md)
-> for the authoritative implementation state.
+> pilot-ready as of 2026-07-13. Phase 1 implementation remains unauthorized until formal sign-off.
+> See [docs/CAPABILITY_STATUS.md](file:///d:/Q-Sight%20Command%20Center/docs/CAPABILITY_STATUS.md) for the authoritative implementation state.
 
 Q-Sight Command Center is a **pre-production prototype** of an **Industrial Spatial Intelligence Command Center** designed for authorized asset tracking, logistics management, emergency response, infrastructure monitoring, environmental risk assessment, and industrial safety operations.
 
@@ -25,7 +25,7 @@ This product is built solely for legitimate industrial operations, safety monito
 *   **No Covert Recording**: All recording features require active user visibility, indicators showing recording status, and automated retention limits.
 *   **No Person Tracking**: Design prohibits targeting, filtering, or search-by-identity of individual human beings or crowds.
 *   **No Predictive Policing or Social Profiling**: Explicit ban on scoring, predicting, profiling, or analyzing human behavior.
-*   **Explicit Feed Authorization**: All camera feeds must be privately owned, legally registered, and explicitly authorized by asset owners before they can be configured in the registry.
+*   **Explicit Sensor Authorization**: All sensor metadata must be explicitly authorized by asset owners before it can be configured in the registry.
 
 ---
 
@@ -65,13 +65,13 @@ d:/Q-Sight Command Center/
 ## 🚀 Getting Started
 
 ### Prerequisites
-*   Node.js 22 (LTS recommended — see `.nvmrc`; minimum >=18.0.0)
+*   Node.js 22 (LTS recommended — see `.nvmrc`)
 *   npm (>= v9.0.0)
 *   Docker & Docker Compose (for local PostGIS database)
 
 ### Prototype Operations
 
-The v1.0 prototype supports safe execution in both mock/demo mode and live data mode.
+The prototype supports safe execution in both mock/demo mode and live data mode.
 
 **Native Startup:**
 ```bash

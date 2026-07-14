@@ -82,29 +82,31 @@ CREATE INDEX idx_seismic_location ON seismic_events USING GIST(location);
 CREATE INDEX idx_seismic_time ON seismic_events(event_time DESC);
 ```
 
-### E. Authorized Camera Registry Table (`authorized_cameras`)
-Registry of verified cameras on industrial assets.
+### E. Sensor Registry Table (`sensor_registry`)
+Registry of verified sensors on industrial assets.
 ```sql
-CREATE TABLE authorized_cameras (
+CREATE TABLE sensor_registry (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     asset_id UUID REFERENCES industrial_assets(id) ON DELETE SET NULL,
     name VARCHAR(100) NOT NULL,
-    stream_url VARCHAR(500) NOT NULL, -- Secret authorized stream address
     status VARCHAR(20) DEFAULT 'offline', -- 'online', 'offline', 'disabled'
-    verification_hash VARCHAR(64) NOT NULL, -- Cryptographic signature check (SHA-256)
     location GEOMETRY(Point, 4326) NOT NULL, -- Location coordinate
     owner_id VARCHAR(100) NOT NULL, -- Identification of authorized owner/operator
     authorization_status VARCHAR(50) DEFAULT 'pending', -- 'pending', 'verified', 'revoked'
-    authorized_at TIMESTAMP WITH TIME ZONE, -- When the stream was verified/authorized
+    authorized_at TIMESTAMP WITH TIME ZONE, -- When the sensor was verified/authorized
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX idx_cameras_location ON authorized_cameras USING GIST(location);
+CREATE INDEX idx_sensor_location ON sensor_registry USING GIST(location);
+```
+
+> **Note:** Video streaming, RTSP, HLS, WebRTC, biometric processing, and person tracking are not part of the accepted Phase 0 baseline and require a separate future security review if ever proposed.
+
 ```
 
 ### F. Access Audit Logs Table (`audit_logs`)
-Append-only logs for tracking view histories of sensitive assets and camera feeds. Expanded in v0.5 via startup migrations.
+Append-only logs for tracking view histories of sensitive assets and sensor metadata. Expanded in v0.5 via startup migrations.
 ```sql
 CREATE TABLE audit_logs (
     id BIGSERIAL PRIMARY KEY,
@@ -112,7 +114,7 @@ CREATE TABLE audit_logs (
     role VARCHAR(50),                  -- Simulated user access role (added in v0.5)
     action VARCHAR(50) NOT NULL,       -- Action logged (e.g. 'camera_metadata_view_redacted')
     target_type VARCHAR(50),           -- Resource category accessed (added in v0.5)
-    target_id VARCHAR(100),            -- ID of the camera or asset accessed
+    target_id VARCHAR(100),            -- ID of the sensor or asset accessed
     request_id VARCHAR(100),           -- Correlation ID of the HTTP request (added in v0.5)
     route VARCHAR(255),                -- HTTP request path (added in v0.5)
     metadata JSONB,                    -- Structured metadata context (added in v0.5)

@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Live Prototype Evidence - V1.0 Working Prototype Checkpoint
 
 ## Validation Date/Time
@@ -53,3 +55,4 @@
 - `node scripts/ws_verify.js`
 - `npm run dev:api`
 - `npm run dev:web`
+

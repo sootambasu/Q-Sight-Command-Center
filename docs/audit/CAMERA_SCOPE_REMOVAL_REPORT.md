@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Camera Scope Removal Report
 
 ## Overview
@@ -14,3 +16,4 @@ This document records the removal of the camera streaming scope and its replacem
 - No stream credentials remain in the schema.
 - Role-based redaction continues to secure location and ownership metadata for basic operators.
 - Validated via database schema inspection and API response parsing.
+

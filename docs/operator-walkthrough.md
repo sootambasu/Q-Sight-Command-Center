@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Q-Sight Command Center — Operator Walkthrough
 
 This document outlines the user interface components of the Q-Sight Command Center and explains how a dashboard operator interacts with spatial telemetry.
@@ -39,3 +41,4 @@ Click any marker on the Cesium globe:
 
 *   **No Live Camera Streams**: In compliance with privacy guidelines, this console is strictly metadata-only. Video playback widgets, WebRTC endpoints, and public CCTV scraping are intentionally unsupported.
 *   **Privacy Gating**: Detail fields are sanitized server-side. De-redaction is controlled strictly via role-based headers, preventing authorization bypass.
+

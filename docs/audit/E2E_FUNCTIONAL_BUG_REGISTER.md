@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # E2E Functional Bug Register
 
 This bug register lists the issues and functional gaps identified during the E2E Functional Test Rehearsal of the Q-Sight Command Center staging candidate.
@@ -13,3 +15,4 @@ This bug register lists the issues and functional gaps identified during the E2E
 *   **Medium**: Partially breaks a feature or displays incorrect operational states.
 *   **Low**: UX inconsistency, missing minor frontend component execution (non-blocking).
 *   **Info**: Documentation placeholders or known features in development.
+

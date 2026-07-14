@@ -42,7 +42,7 @@ To prevent misuse, the system implements strict functional exclusions. The follo
 > [!WARNING]
 > Audit logs are **locally append-only** via a PostgreSQL trigger that blocks UPDATE and DELETE.
 > **External anchoring (SIEM/outbox) is PLANNED but not yet implemented.**
-> This does NOT constitute immutable audit under enterprise compliance standards.
+> Database-level append-only control exists locally; enterprise-grade immutability requires external append-only replication.
 
 *   All high-sensitivity actions must write to the `audit_logs` table.
 *   **Sensitive Actions Include**:
@@ -58,7 +58,7 @@ To prevent misuse, the system implements strict functional exclusions. The follo
 *   **supervisor**: Permitted to view full asset geofences and authorized camera metadata. Excluded from viewing audit records.
 *   **auditor**: Permitted to view compliance logs and summaries. Excluded from viewing operational telemetry.
 *   **admin**: Superuser role inheriting all permissions.
-*   **Development Simulation**: Current user roles are simulated via `x-q-sight-role` and `x-q-sight-user-id` request headers. This is strictly a development environment mechanism and must be replaced with enterprise-grade JWT validation (e.g. Azure AD integration) prior to deployment.
+*   **Development Simulation**: Current user roles are simulated via `x-q-sight-role` and `x-q-sight-user-id` request headers. This is strictly a development environment mechanism and these headers are rejected/ignored in the production profile. Production auth must use OIDC/JWKS or equivalent verified identity.
 
 ---
 
@@ -127,7 +127,7 @@ Geofence alerts implement the following safety restrictions (enforced via `WsGeo
 To prevent regression and enforce compliance, a static code analyzer is deployed at `scripts/verify_safety_guardrails.js`. 
 
 ### Checked Patterns
-- **Frontend leaks**: Scans `apps/web/src` for exposure of sensitive camera properties (`stream_url`, `verification_hash`).
+- **Frontend leaks**: Scans `apps/web/src` for exposure of sensitive sensor properties.
 - **Feature bans**: Verifies no direct `<video>` tags or WebRTC APIs (`getUserMedia`, `RTCPeerConnection`) are invoked.
 - **WebSocket privacy**: Blocks subscriptions to camera-related channels (`camera.*`, `feed.*`).
 - **Biometric vocabulary**: Flags usage of biometric, facial recognition, or person tracking terminology in database schemas, models, or backend route files.

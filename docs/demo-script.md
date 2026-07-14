@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Q-Sight Command Center — Executive Demo Script
 **Duration**: 5 - 7 Minutes
 
@@ -31,3 +33,4 @@
 ## 5. Scenario C: Compliance Review (5:30 - 7:00)
 *   **Action**: Select **Compliance Review** scenario. Switch Role to `auditor` in header. Click **Audits** tab.
 *   **Speech**: "Finally, we demonstrate compliance transparency. As an Auditor, the system completely disables the operational 3D map. Instead, the auditor reviews our audit viewer tab, which pulls data directly from our database. Here we inspect logs recording every sensitive query, role switch, and denied access attempt. Q-Sight provides complete audit logs to ensure compliance, finalizing our walkthrough."
+
