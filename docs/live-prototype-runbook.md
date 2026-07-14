@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Q-Sight Command Center — Live Data Ingestion & Prototype Hardening Runbook
 
 This runbook outlines the steps to configure, verify, execute, and rollback the live open-data ingestion adapters for the Q-Sight Command Center working prototype.
@@ -174,3 +176,4 @@ To return the project to its v0.9 release candidate baseline (clean, offline-saf
    LIVE_INGESTOR_WRITE_TO_DB=false
    ```
 2. Restart the API server and frontend server.
+

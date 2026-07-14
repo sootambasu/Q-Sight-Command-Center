@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Q-Sight Pilot/Staging Readiness Checklist
 
 > [!NOTE]
@@ -75,3 +77,4 @@ This checklist defines the validation criteria for preparing the Q-Sight Command
 ## 12. Go / No-Go Criteria
 - [ ] **Go**: All safety guardrails pass, database migrations complete successfully, health endpoints return `status: ready`, and client loads in staging without exposing sensitive camera metrics.
 - [ ] **No-Go**: Any camera stream URL is exposed to the frontend, safety scanner fails, database migrations crash startup, or websocket auth is bypassed.
+

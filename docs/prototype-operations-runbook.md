@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Pilot & Operations Runbook (v1.0)
 
 ## 1. Purpose
@@ -95,3 +97,4 @@ npm.cmd run pilot:live-check
 2. Replace `.env` with `.env.demo.example`.
 3. Restart the API server.
 4. Enable "Demo Mode" on the frontend.
+

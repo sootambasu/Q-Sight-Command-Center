@@ -69,7 +69,7 @@ The application aggregates multiple telemetry layers (air, orbit, seismic) over 
 
 ### v0.2: Core Database & Mock Ingestors
 *   Launch Docker Compose PostGIS database.
-*   Implement Knex migrations for telemetry databases and camera registry.
+*   Implement Knex migrations for telemetry databases and sensor registry.
 *   Write mock worker ingestors simulating plane, satellite, and seismic telemetry.
 
 ### v0.3: CesiumJS & Google 3D Tiles Visualization
@@ -87,7 +87,7 @@ The application aggregates multiple telemetry layers (air, orbit, seismic) over 
 *   Add Postgres triggers/listeners to check seismic proximity to assets.
 *   Implement frontend toast notifications and flashing hazard zones.
 
-### v0.6: Secure Camera Registry & Audit Logging
-*   Implement camera feed registration endpoints with authentication and hash checking.
+### v0.6: Secure Sensor Registry & Audit Logging
+*   Implement sensor metadata registration endpoints.
 *   Configure the Fastify audit logging hooks.
 *   Perform penetration testing and safety audits to confirm that no-go guardrails are technically enforced.

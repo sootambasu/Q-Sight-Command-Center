@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Forensic Audit Report
 
 ## 1. Objective and Scope
@@ -23,3 +25,4 @@ The system successfully transitioned to an npm workspaces monorepo structure. Do
 
 ## 5. Conclusion
 The codebase is robust and adheres closely to its design principles. With the remediation pass completed, it is unequivocally verified as **Pilot Ready (GO WITH CONDITIONS)**.
+

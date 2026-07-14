@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Pre-Product-Suite UI Hardening sprint
 
 ## Scope
@@ -49,3 +51,4 @@ Full verification evidence and checklist records are preserved in [PRE_PRODUCT_S
 ## Known Limitations
 - Alert inbox is client-side only (stored in browser `localStorage`). No server database synchronization or SLA escalation.
 - Cesium Ion tokens are omitted; basemaps fall back to OpenStreetMap by design.
+

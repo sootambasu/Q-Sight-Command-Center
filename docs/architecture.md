@@ -41,8 +41,8 @@ graph TD
 
 ### Backend Architecture (`apps/api`)
 *   **Framework**: Fastify + TypeScript. Fastify is chosen for its low overhead, speed, and native JSON schema validation.
-*   **Authentication & RBAC (Simulated v0.5)**:
-    *   `context.ts`: Extracts simulated roles (`x-q-sight-role`), user identifiers (`x-q-sight-user-id`), and request correlation IDs (`x-q-sight-request-id`) from HTTP headers.
+*   **Authentication & RBAC**:
+    *   `context.ts`: Extracts simulated roles (`x-q-sight-role`), user identifiers (`x-q-sight-user-id`), and request correlation IDs (`x-q-sight-request-id`) from HTTP headers. Note: `x-q-sight-role` and similar developer headers are development-only and must be ignored/rejected when `BUILD_PROFILE=production`.
     *   `roles.ts`: Declares role mappings (`operator`, `supervisor`, `auditor`, `admin`) to granular permissions.
     *   `requirePermission.ts`: Protects routes dynamically. Returns `403 Forbidden` if permissions are insufficient and logs rate-limited denials.
 *   **Database Interface**: Knex.js / node-postgres querying a PostGIS database. Calls dev migrations (`runDevMigrations()`) on start to verify the schema.
@@ -55,7 +55,7 @@ graph TD
     *   **Opt-in Live Feeds**: Configured via `.env` variables (`LIVE_INGESTION_ENABLED`, `AIRCRAFT_LIVE_ENABLED`, etc.). Default mode remains mock.
     *   **Shared Ingestion Types**: Common Zod validation and output formatting (`IngestionResult<T>`) reside in `@q-sight/shared`.
     *   **Defensive HTTP Client**: Custom fetch handler (`fetchWithTimeout`) implements strict request abort timeouts to avoid hanging.
-    *   **Resilient Fallback**: If live ingestion is disabled, or a request fails or times out, workers automatically and gracefully fall back to local mock data.
+    *   **Resilient Fallback**: Mock/demo fallback is allowed only in demo/local profiles and is disabled in production-like mode. Production-like behavior must fail closed, use last-known-good trusted data, or mark source quality as degraded/stale/expired. Simulated data must never enter production databases.
     *   **Write Separation**: Database persistence is optional and guarded by `LIVE_INGESTOR_WRITE_TO_DB`. If disabled, data is processed in-memory without writes.
 *   **Rate Limits**: Configured intervals (`INGESTION_INTERVAL_*_MS`) prevent workers from overloading APIs.
 
@@ -68,8 +68,8 @@ PostgreSQL with the PostGIS extension is used to store and index geospatial enti
 *   `aircraft_positions`: Tracks latitude, longitude, and altitude of aircraft. Uses a 3D Point (`POINTZ`) geometry with GIST spatial indexing.
 *   `satellite_orbits`: Stores orbit footprints. Uses a Polygon (`POLYGON`) geometry representing the satellite's signal range on the ground.
 *   `seismic_events`: Stores USGS earthquake coordinates (`POINT`) along with magnitude and time.
-*   `authorized_cameras`: Stores cameras (`POINT`) along with streaming credentials, status, and owner verification keys.
-*   `audit_logs`: Immutable, append-only logs capturing user access records to any camera feed.
+*   `sensor_registry`: Stores sensors (`POINT`) along with status and owner verification keys.
+*   `audit_logs`: Append-only logs capturing user access records to sensor metadata.
 
 *Note: For complete table details, see [database-schema.md](file:///d:/Q-Sight%20Command%20Center/docs/database-schema.md).*
 

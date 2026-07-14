@@ -1,4 +1,6 @@
-﻿# Pilot Rehearsal Log
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
+# Pilot Rehearsal Log
 ## 1. Static Verification
 ```
 
@@ -120,13 +122,13 @@
 
 [36mvite v5.4.21 [32mbuilding for production...[36m[39m
 transforming...
-[32mΓ£ô[39m 39 modules transformed.
+[32mG��[39m 39 modules transformed.
 rendering chunks...
 computing gzip size...
-[2mdist/[22m[32mindex.html                 [39m[1m[2m  0.68 kB[22m[1m[22m[2m Γöé gzip:  0.39 kB[22m
-[2mdist/[22m[35massets/index-Bwy9EhVx.css  [39m[1m[2m 43.79 kB[22m[1m[22m[2m Γöé gzip:  9.09 kB[22m
-[2mdist/[22m[36massets/index-BUGzLbAn.js   [39m[1m[2m208.41 kB[22m[1m[22m[2m Γöé gzip: 60.99 kB[22m
-[32mΓ£ô built in 1.03s[39m
+[2mdist/[22m[32mindex.html                 [39m[1m[2m  0.68 kB[22m[1m[22m[2m G�� gzip:  0.39 kB[22m
+[2mdist/[22m[35massets/index-Bwy9EhVx.css  [39m[1m[2m 43.79 kB[22m[1m[22m[2m G�� gzip:  9.09 kB[22m
+[2mdist/[22m[36massets/index-BUGzLbAn.js   [39m[1m[2m208.41 kB[22m[1m[22m[2m G�� gzip: 60.99 kB[22m
+[32mG�� built in 1.03s[39m
 ```
 ## 2. Safety Verification
 ```
@@ -146,7 +148,7 @@ At line:11 char:1
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
 To eliminate this warning, add "type": "module" to D:\Q-Sight Command Center\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
-≡ƒ¢í∩╕Å Starting Safety Guardrails Verification Scanner...
+=���n+� Starting Safety Guardrails Verification Scanner...
    Scanning directory: apps/web/src
    Scanning directory: apps/api/src
    Scanning directory: workers
@@ -159,7 +161,7 @@ To eliminate this warning, add "type": "module" to D:\Q-Sight Command Center\pac
    Scanning config file: .env.staging.example
 
 ==================================================
-Γ£à Safety Verification PASSED. No forbidden patterns detected in code/configs.
+G�� Safety Verification PASSED. No forbidden patterns detected in code/configs.
 ```
 ## 3. Docker Build
 ```
@@ -298,13 +300,13 @@ At line:16 char:1
 #15 0.609 
 #15 4.590 vite v5.4.21 building for production...
 #15 4.652 transforming...
-#15 5.781 Γ£ô 39 modules transformed.
+#15 5.781 G�� 39 modules transformed.
 #15 5.972 rendering chunks...
 #15 5.982 computing gzip size...
-#15 5.992 dist/index.html                   0.68 kB Γöé gzip:  0.39 kB
-#15 5.992 dist/assets/index-Bwy9EhVx.css   43.79 kB Γöé gzip:  9.09 kB
-#15 5.993 dist/assets/index-BUGzLbAn.js   208.41 kB Γöé gzip: 60.99 kB
-#15 5.994 Γ£ô built in 1.38s
+#15 5.992 dist/index.html                   0.68 kB G�� gzip:  0.39 kB
+#15 5.992 dist/assets/index-Bwy9EhVx.css   43.79 kB G�� gzip:  9.09 kB
+#15 5.993 dist/assets/index-BUGzLbAn.js   208.41 kB G�� gzip: 60.99 kB
+#15 5.994 G�� built in 1.38s
 #15 DONE 6.4s
 
 #14 [api 5/5] RUN npm run build
@@ -384,9 +386,9 @@ At line:5 char:1
 ## 5. Docker PS
 ```
 NAME                       IMAGE                    COMMAND                  SERVICE    CREATED          STATUS                    PORTS
-qsight-prototype-api       infra-api                "docker-entrypoint.sΓÇª"   api        27 seconds ago   Up 15 seconds             0.0.0.0:4000->4000/tcp, [::]:4000->4000/tcp
-qsight-prototype-postgis   postgis/postgis:15-3.3   "docker-entrypoint.sΓÇª"   postgres   27 seconds ago   Up 26 seconds (healthy)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
-qsight-prototype-web       infra-web                "/docker-entrypoint.ΓÇª"   web        27 seconds ago   Up 15 seconds             0.0.0.0:5173->8080/tcp, [::]:5173->8080/tcp
+qsight-prototype-api       infra-api                "docker-entrypoint.sGǪ"   api        27 seconds ago   Up 15 seconds             0.0.0.0:4000->4000/tcp, [::]:4000->4000/tcp
+qsight-prototype-postgis   postgis/postgis:15-3.3   "docker-entrypoint.sGǪ"   postgres   27 seconds ago   Up 26 seconds (healthy)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+qsight-prototype-web       infra-web                "/docker-entrypoint.GǪ"   web        27 seconds ago   Up 15 seconds             0.0.0.0:5173->8080/tcp, [::]:5173->8080/tcp
 ```
 ## 6. API Health and Ready
 ```
@@ -465,3 +467,4 @@ RawContentLength  : 795
 - **No stream_url / verification_hash / tracking UI appears:** Yes. Confirmed absent.
 ## 9. Final Recommendations
 Proceed to pilot deployment. The Docker-based workflow is confirmed fully functional and clean of asset-copy warnings.
+

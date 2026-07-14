@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Post-Merge A9 Red-Team Report
 
 ## 1. Security Assessment Summary
@@ -23,3 +25,4 @@ The Red-Team has reviewed the security mitigations on the merged `develop` branc
 * **Control:** Check outbox worker transactional integrity, backpressure, and dead-letter queue behavior.
 * **Status:** **PASS**
 * **Findings:** Outbox worker tests verify that failures in downstream HTTP audit sinks correctly trigger retries, increments, and dead-letter queue routing after 3 failures.
+

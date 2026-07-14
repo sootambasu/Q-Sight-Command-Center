@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Pilot Freeze Note
 
 - **Freeze Timestamp:** 2026-06-30T14:30:00+05:30
@@ -27,3 +29,4 @@ To spin up the frozen staging release:
 5. Verify health check on `http://localhost:4000/health`
 6. Verify app on `http://localhost:5173`
 7. Tear down: `docker compose -f infra/docker-compose.prototype.yml down`
+

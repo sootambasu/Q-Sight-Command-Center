@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # UI/UX Overhaul Validation
 
 ## 1. Final Status
@@ -75,3 +77,4 @@ The pilot freeze remains valid; no features, data schemas, or backend logic were
 
 ## 16. Final Recommendation
 The Enterprise Command Center Interface passes all manual and automated checks. Accept sprint and proceed to product suite completion.
+

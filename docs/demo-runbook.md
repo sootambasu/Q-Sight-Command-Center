@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Q-Sight Command Center — Executive Demo Runbook
 
 This runbook guides technical presenters and operators on how to initialize, verify, and run the Q-Sight Command Center v0.8 presentation environment.
@@ -59,3 +61,4 @@ To terminate all services safely, issue `Ctrl + C` in each terminal window or sp
 # If using docker
 docker-compose down
 ```
+

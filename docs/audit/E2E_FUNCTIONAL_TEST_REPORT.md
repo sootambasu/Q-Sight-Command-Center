@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # E2E Functional Test Report
 **Q-Sight Command Center — Pre-Phase 0 Stabilization Validation Sprint**
 
@@ -208,3 +210,4 @@ Two non-blocking issues were logged in [E2E_FUNCTIONAL_BUG_REGISTER.md](file:///
 All critical safety controls, REST routes, WebSocket connections, RBAC boundaries, and Docker deployment layers are stable and function flawlessly. The two bugs logged are low-impact frontend design details that do not compromise data safety or system stability.
 
 **Recommendation:** Proceed immediately to Prompt 25 Phase 0 Baseline Stabilization.
+

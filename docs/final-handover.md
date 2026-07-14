@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Q-Sight Command Center — Final Handover Document (v1.0 Pilot/Staging Release)
 
 ## Project Overview
@@ -87,3 +89,4 @@ docker compose -f infra/docker-compose.prototype.yml build
 1.  **Production Authentication**: Integrating Azure AD / Entra ID for real JWT-based RBAC.
 2.  **Kubernetes Probe Integration**: Leverage the new `/ready` and `/version` endpoints for service discovery and deployment checks.
 3.  **Observability Integration**: Adding Prometheus metrics and OpenTelemetry tracing to the Fastify API.
+

@@ -1,3 +1,5 @@
+Historical note: This document predates Phase 0 acceptance. Where this document conflicts with docs/audit/PHASE_0_ACCEPTANCE_NOTE.md, docs/phase1/PHASE_1_PLANNING_BRIEF.md, or docs/phase1/PHASE_1_DOCUMENTATION_CONSISTENCY_PREFLIGHT.md, the newer Phase 0/Phase 1 governance documents take precedence.
+
 # Pre-Product-Suite UI Hardening Verification Evidence
 
 This report documents the verification evidence trail for the UI Hardening Sprint.
@@ -81,3 +83,4 @@ Confirmations of functional behaviors within the frontend web application:
 - [x] **No stream_url** is exposed to client-side layouts.
 - [x] **No verification_hash** is sent to or stored in client-side code.
 - [x] **No person-tracking UI** components or terms exist in the web application layout.
+
